@@ -1,0 +1,4306 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "luck-draw",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "captcha-api"
+    },
+    {
+      "name": "luckdraw-api"
+    },
+    {
+      "name": "prizesPool"
+    },
+    {
+      "name": "activity"
+    },
+    {
+      "name": "adminer"
+    },
+    {
+      "name": "admin-api"
+    },
+    {
+      "name": "lucker"
+    },
+    {
+      "name": "prize"
+    },
+    {
+      "name": "project"
+    },
+    {
+      "name": "rbac"
+    },
+    {
+      "name": "user"
+    },
+    {
+      "name": "usersPool"
+    }
+  ],
+  "paths": {
+    "/v1/api/admin/PrizesPool/": {
+      "get": {
+        "summary": "获取奖品池信息",
+        "x-apifox-folder": "prizesPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "info",
+        "tags": [
+          "prizesPool"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除奖品池",
+        "x-apifox-folder": "prizesPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "del",
+        "tags": [
+          "prizesPool"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "编辑奖品池",
+        "x-apifox-folder": "prizesPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "edit",
+        "tags": [
+          "prizesPool"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "添加奖品池",
+        "x-apifox-folder": "prizesPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "add",
+        "tags": [
+          "prizesPool"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/currentUser": {
+      "post": {
+        "summary": "获取当前用户信息",
+        "x-apifox-folder": "admin-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "currentUser",
+        "tags": [
+          "admin-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/activity/": {
+      "post": {
+        "summary": "添加活动",
+        "x-apifox-folder": "activity",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "add",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "编辑活动",
+        "x-apifox-folder": "activity",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "edit",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除活动",
+        "x-apifox-folder": "activity",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "del",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取活动信息",
+        "x-apifox-folder": "activity",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "info",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/adminer/": {
+      "delete": {
+        "summary": "删除管理员",
+        "x-apifox-folder": "adminer",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "del",
+        "tags": [
+          "adminer"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取管理员信息",
+        "x-apifox-folder": "adminer",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "info",
+        "tags": [
+          "adminer"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "添加管理员",
+        "x-apifox-folder": "adminer",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "add",
+        "tags": [
+          "adminer"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "编辑管理员",
+        "x-apifox-folder": "adminer",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "edit",
+        "tags": [
+          "adminer"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/rbac/policies": {
+      "get": {
+        "summary": "批量获取授权策略",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getPolicies",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [
+          {
+            "name": "rules",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "批量修改授权规则",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "putPolicies",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "批量删除授权规则",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "delPolicies",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "批量添加授权策略",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "addPolicies",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/captcha/show": {
+      "get": {
+        "summary": "验证码图片",
+        "x-apifox-folder": "captcha-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "showCaptcha",
+        "tags": [
+          "captcha-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/user/": {
+      "post": {
+        "summary": "添加用户",
+        "x-apifox-folder": "user",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "add",
+        "tags": [
+          "user"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取用户信息",
+        "x-apifox-folder": "user",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "info",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除用户",
+        "x-apifox-folder": "user",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "del",
+        "tags": [
+          "user"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "编辑用户",
+        "x-apifox-folder": "user",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "edit",
+        "tags": [
+          "user"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/lucker/list": {
+      "get": {
+        "summary": "获取抽奖者列表",
+        "x-apifox-folder": "lucker",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "List",
+        "tags": [
+          "lucker"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页面大小",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "当前页码",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "关键词，可选",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/project/list": {
+      "get": {
+        "summary": "获取项目列表",
+        "x-apifox-folder": "project",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "List",
+        "tags": [
+          "project"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页面大小",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "当前页码",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "关键词，可选",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/user/list": {
+      "get": {
+        "summary": "获取用户列表",
+        "x-apifox-folder": "user",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "List",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页面大小",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "当前页码",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "关键词，可选",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/usersPool/": {
+      "put": {
+        "summary": "编辑用户池",
+        "x-apifox-folder": "usersPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "edit",
+        "tags": [
+          "usersPool"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "添加用户池",
+        "x-apifox-folder": "usersPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "add",
+        "tags": [
+          "usersPool"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除用户池",
+        "x-apifox-folder": "usersPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "del",
+        "tags": [
+          "usersPool"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取用户池信息",
+        "x-apifox-folder": "usersPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "info",
+        "tags": [
+          "usersPool"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/logout": {
+      "post": {
+        "summary": "注销",
+        "x-apifox-folder": "admin-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "logout",
+        "tags": [
+          "admin-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/lucker/": {
+      "delete": {
+        "summary": "删除抽奖者",
+        "x-apifox-folder": "lucker",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "del",
+        "tags": [
+          "lucker"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "添加抽奖者",
+        "x-apifox-folder": "lucker",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "add",
+        "tags": [
+          "lucker"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取抽奖者信息",
+        "x-apifox-folder": "lucker",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "info",
+        "tags": [
+          "lucker"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "编辑抽奖者",
+        "x-apifox-folder": "lucker",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "edit",
+        "tags": [
+          "lucker"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/prize/": {
+      "post": {
+        "summary": "添加奖品",
+        "x-apifox-folder": "prize",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "add",
+        "tags": [
+          "prize"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除奖品",
+        "x-apifox-folder": "prize",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "del",
+        "tags": [
+          "prize"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "编辑奖品",
+        "x-apifox-folder": "prize",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "edit",
+        "tags": [
+          "prize"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取奖品信息",
+        "x-apifox-folder": "prize",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "info",
+        "tags": [
+          "prize"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/luckdraw/luckerList": {
+      "post": {
+        "summary": "获取自己在某活动的中奖名单",
+        "x-apifox-folder": "luckdraw-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "luckerList",
+        "tags": [
+          "luckdraw-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/loginByEmail": {
+      "post": {
+        "summary": "邮箱登录",
+        "x-apifox-folder": "admin-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "loginByEmail",
+        "tags": [
+          "admin-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/captcha/math": {
+      "post": {
+        "summary": "获取数学验证码",
+        "x-apifox-folder": "captcha-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "mathCaptcha",
+        "tags": [
+          "captcha-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/captcha/email/process": {
+      "post": {
+        "summary": "邮箱验证码校验",
+        "x-apifox-folder": "captcha-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "emailCaptchaVerify",
+        "tags": [
+          "captcha-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailCaptchaResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/adminer/modify": {
+      "post": {
+        "summary": "管理员修改自己的账号信息",
+        "x-apifox-folder": "adminer",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "modify",
+        "tags": [
+          "adminer"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/luckdraw/prizes": {
+      "post": {
+        "summary": "获取活动奖品列表",
+        "x-apifox-folder": "luckdraw-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "prizes",
+        "tags": [
+          "luckdraw-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/rbac/policy": {
+      "delete": {
+        "summary": "删除授权规则",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "delPolicy",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "添加授权策略",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "addPolicy",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "获取授权策略",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getPolicy",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [
+          {
+            "name": "sub",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dom",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "obj",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "act",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "修改授权规则",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "putPolicy",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/rbac/domain-users": {
+      "get": {
+        "summary": "将获得所有与该域相关联的用户",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getAllUsersByDomain",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [
+          {
+            "name": "domain",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/luckdraw/goodluck": {
+      "post": {
+        "summary": "抽取奖品",
+        "x-apifox-folder": "luckdraw-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "goodluck",
+        "tags": [
+          "luckdraw-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/captcha/email": {
+      "post": {
+        "summary": "获取发送邮箱验证码",
+        "x-apifox-folder": "captcha-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "emailCaptcha",
+        "tags": [
+          "captcha-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/luckdraw/search": {
+      "post": {
+        "summary": "查询中奖信息",
+        "x-apifox-folder": "luckdraw-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "search",
+        "tags": [
+          "luckdraw-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/luckdraw/selectPrizes": {
+      "post": {
+        "summary": "挑选奖品",
+        "x-apifox-folder": "luckdraw-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "selectPrizes",
+        "tags": [
+          "luckdraw-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/luckdraw/{shortlink}": {
+      "get": {
+        "summary": "展现抽奖页面",
+        "x-apifox-folder": "luckdraw-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "luckView",
+        "tags": [
+          "luckdraw-api"
+        ],
+        "parameters": [
+          {
+            "name": "shortlink",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/prize/list": {
+      "get": {
+        "summary": "获取奖品列表",
+        "x-apifox-folder": "prize",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "List",
+        "tags": [
+          "prize"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页面大小",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "当前页码",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "关键词，可选",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/rbac/all-policies": {
+      "get": {
+        "summary": "获取策略中的所有授权规则",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getAllPolicy",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/luckdraw/identify": {
+      "post": {
+        "summary": "抽奖者身份验证",
+        "x-apifox-folder": "luckdraw-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "identify",
+        "tags": [
+          "luckdraw-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/project/": {
+      "get": {
+        "summary": "获取项目信息",
+        "x-apifox-folder": "project",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "info",
+        "tags": [
+          "project"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "添加项目",
+        "x-apifox-folder": "project",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "add",
+        "tags": [
+          "project"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "删除项目",
+        "x-apifox-folder": "project",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "del",
+        "tags": [
+          "project"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "编辑项目",
+        "x-apifox-folder": "project",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "edit",
+        "tags": [
+          "project"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/usersPool/list": {
+      "get": {
+        "summary": "获取用户池列表",
+        "x-apifox-folder": "usersPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "List",
+        "tags": [
+          "usersPool"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页面大小",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "当前页码",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "关键词，可选",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/rbac/all-objects": {
+      "get": {
+        "summary": "获取当前策略中显示的 object 列表",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getAllObjects",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/login": {
+      "post": {
+        "summary": "登录",
+        "x-apifox-folder": "admin-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "login",
+        "tags": [
+          "admin-api"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/PrizesPool/list": {
+      "get": {
+        "summary": "获取奖品池列表",
+        "x-apifox-folder": "prizesPool",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "List",
+        "tags": [
+          "prizesPool"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页面大小",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "当前页码",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "关键词，可选",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/activity/list": {
+      "get": {
+        "summary": "获取活动列表",
+        "x-apifox-folder": "activity",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "List",
+        "tags": [
+          "activity"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页面大小",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "当前页码",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "关键词，可选",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/rbac/permissions": {
+      "get": {
+        "summary": "获取用户在某域内的权限",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "GetPermissionsForUserInDomain",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [
+          {
+            "name": "sub",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "dom",
+            "in": "query",
+            "description": "",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/adminer/list": {
+      "get": {
+        "summary": "获取管理员列表",
+        "x-apifox-folder": "adminer",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "List",
+        "tags": [
+          "adminer"
+        ],
+        "parameters": [
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "页面大小",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "current",
+            "in": "query",
+            "description": "当前页码",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "关键词，可选",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/captcha/process": {
+      "post": {
+        "summary": "验证码校验",
+        "x-apifox-folder": "captcha-api",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "processCaptcha",
+        "tags": [
+          "captcha-api"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "captcha_id": {
+                    "type": "string"
+                  },
+                  "solution": {
+                    "type": "string"
+                  }
+                },
+                "x-apifox-orders": [
+                  "captcha_id",
+                  "solution"
+                ],
+                "required": [
+                  "captcha_id",
+                  "solution"
+                ],
+                "x-apifox-ignore-properties": []
+              },
+              "example": {
+                "captcha_id": "ubSvVqbrd9JCJU7sHHGh",
+                "solution": "10"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/api/admin/rbac/all-actions": {
+      "get": {
+        "summary": "获取当前策略中显示的操作列表",
+        "x-apifox-folder": "rbac",
+        "x-apifox-status": "released",
+        "deprecated": false,
+        "description": "",
+        "operationId": "getAllActions",
+        "tags": [
+          "rbac"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BaseResp"
+                },
+                "examples": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BatchIdReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        },
+        "title": "BatchIdReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "PrizesPoolDelReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "PrizesPoolDelReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "activityGetReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "activityGetReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "loginByEmailReq": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "邮箱地址"
+          },
+          "autoLogin": {
+            "type": "boolean",
+            "format": "boolean",
+            "default": "false",
+            "description": "是否开启自动登录"
+          },
+          "captcha_id": {
+            "type": "string",
+            "description": "验证码ID"
+          },
+          "solution": {
+            "type": "string",
+            "description": "验证码答案"
+          }
+        },
+        "title": "loginByEmailReq",
+        "required": [
+          "email",
+          "autoLogin",
+          "solution"
+        ],
+        "x-apifox-orders": [
+          "email",
+          "autoLogin",
+          "captcha_id",
+          "solution"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "adminerDelReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "adminerDelReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "adminerGetReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "adminerGetReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "activityDelReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "activityDelReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "activityAddReq": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": " 活动名称"
+          },
+          "project_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 项目id"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动状态，是否在举办，默认关闭，需手动开启"
+          },
+          "pattern": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 方案: 0私密的，1公开的"
+          },
+          "max_count": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 最大抽奖次数：-1表示无限制，0表示不可抽奖"
+          },
+          "max_prizes": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 最大抽奖次数：-1表示无限制，0表示不可抽奖"
+          },
+          "start_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动开始时间"
+          },
+          "end_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动结束时间"
+          }
+        },
+        "title": "activityAddReq",
+        "required": [
+          "name",
+          "project_id",
+          "status",
+          "pattern",
+          "max_count",
+          "max_prizes",
+          "start_time",
+          "end_time"
+        ],
+        "x-apifox-orders": [
+          "name",
+          "project_id",
+          "status",
+          "pattern",
+          "max_count",
+          "max_prizes",
+          "start_time",
+          "end_time"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "projectAddReq": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": " 项目名称"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "default": "0",
+            "description": " 项目状态"
+          }
+        },
+        "title": "projectAddReq",
+        "required": [
+          "name",
+          "status"
+        ],
+        "x-apifox-orders": [
+          "name",
+          "status"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "usersPoolPutReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 表主键"
+          },
+          "uuid": {
+            "type": "string",
+            "description": " 唯一识别码"
+          },
+          "activity_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动id"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 奖品id"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 状态：-1已被禁止,0未授权，1已授权"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 用户在当前活动的积分"
+          }
+        },
+        "title": "usersPoolPutReq",
+        "required": [
+          "id",
+          "uuid",
+          "activity_id",
+          "user_id",
+          "status",
+          "score"
+        ],
+        "x-apifox-orders": [
+          "id",
+          "uuid",
+          "activity_id",
+          "user_id",
+          "status",
+          "score"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "luckerDelReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "luckerDelReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "projectGetReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "projectGetReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "usersPoolAddReq": {
+        "type": "object",
+        "properties": {
+          "activity_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动id"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 奖品id"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 状态：-1已被禁止,0未授权，1已授权"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 用户在当前活动的积分"
+          }
+        },
+        "title": "usersPoolAddReq",
+        "required": [
+          "activity_id",
+          "user_id",
+          "status",
+          "score"
+        ],
+        "x-apifox-orders": [
+          "activity_id",
+          "user_id",
+          "status",
+          "score"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "userAddReq": {
+        "type": "object",
+        "properties": {
+          "passport": {
+            "type": "string",
+            "description": " 凭证，可以是手机号或者社交账号，一般是由客户填入"
+          },
+          "email": {
+            "type": "string",
+            "description": " 邮箱"
+          },
+          "phone": {
+            "type": "string",
+            "description": " 手机号"
+          },
+          "name": {
+            "type": "string",
+            "description": " 用户名"
+          },
+          "address": {
+            "type": "string",
+            "description": " 收货地址"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 积分"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 状态:-1已经封禁，0未授权，1已授权"
+          }
+        },
+        "title": "userAddReq",
+        "required": [
+          "passport",
+          "email",
+          "phone",
+          "name",
+          "address",
+          "score",
+          "status"
+        ],
+        "x-apifox-orders": [
+          "passport",
+          "email",
+          "phone",
+          "name",
+          "address",
+          "score",
+          "status"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "prizeAddReq": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": " 奖品名称"
+          },
+          "image": {
+            "type": "string",
+            "description": " 奖品图片"
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "description": " 奖品价格"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 是否可用"
+          }
+        },
+        "title": "prizeAddReq",
+        "required": [
+          "name",
+          "image",
+          "price",
+          "status"
+        ],
+        "x-apifox-orders": [
+          "name",
+          "image",
+          "price",
+          "status"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "ProcessCaptchaReq": {
+        "type": "object",
+        "properties": {
+          "captcha_id": {
+            "type": "string"
+          },
+          "solution": {
+            "type": "string"
+          }
+        },
+        "title": "ProcessCaptchaReq",
+        "required": [
+          "captcha_id",
+          "solution"
+        ],
+        "x-apifox-orders": [
+          "captcha_id",
+          "solution"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "luckerGetReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "luckerGetReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "PrizesPoolGetReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "PrizesPoolGetReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "selectPrizesReq": {
+        "type": "object",
+        "properties": {
+          "activity_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动id，需要传入活动id，用于查询redis缓存"
+          },
+          "activity_uuid": {
+            "type": "string",
+            "description": "活动uuid"
+          },
+          "lucker_uuid_list": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "中奖名单UUID"
+          }
+        },
+        "title": "selectPrizesReq",
+        "required": [
+          "activity_id",
+          "activity_uuid",
+          "lucker_uuid_list"
+        ],
+        "x-apifox-orders": [
+          "activity_id",
+          "activity_uuid",
+          "lucker_uuid_list"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "PolicyReq": {
+        "type": "object",
+        "properties": {
+          "sub": {
+            "type": "string"
+          },
+          "dom": {
+            "type": "string"
+          },
+          "obj": {
+            "type": "string"
+          },
+          "act": {
+            "type": "string"
+          }
+        },
+        "title": "PolicyReq",
+        "required": [
+          "sub",
+          "dom",
+          "obj",
+          "act"
+        ],
+        "x-apifox-orders": [
+          "sub",
+          "dom",
+          "obj",
+          "act"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "userGetReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "userGetReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "EmailCaptchaResp": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "format": "boolean"
+          },
+          "captcha_id": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "EmailCaptchaResp",
+        "required": [
+          "success",
+          "captcha_id",
+          "expires_at"
+        ],
+        "x-apifox-orders": [
+          "success",
+          "captcha_id",
+          "expires_at"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "EmailCaptchaVerifyReq": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "captcha_id": {
+            "type": "string"
+          },
+          "solution": {
+            "type": "string"
+          }
+        },
+        "title": "EmailCaptchaVerifyReq",
+        "required": [
+          "email",
+          "captcha_id",
+          "solution"
+        ],
+        "x-apifox-orders": [
+          "email",
+          "captcha_id",
+          "solution"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "goodluckReq": {
+        "type": "object",
+        "properties": {
+          "activity_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动id，需要传入活动id，用于查询redis缓存"
+          },
+          "activity_uuid": {
+            "type": "string",
+            "description": "活动uuid"
+          }
+        },
+        "title": "goodluckReq",
+        "required": [
+          "activity_id",
+          "activity_uuid"
+        ],
+        "x-apifox-orders": [
+          "activity_id",
+          "activity_uuid"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "IdReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "IdReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "ListReq": {
+        "type": "object",
+        "properties": {
+          "pageSize": {
+            "type": "integer",
+            "format": "int64",
+            "default": "20",
+            "description": "页面大小"
+          },
+          "current": {
+            "type": "integer",
+            "format": "int64",
+            "default": "1",
+            "description": "当前页码"
+          },
+          "keyword": {
+            "type": "string",
+            "description": "关键词，可选"
+          }
+        },
+        "title": "ListReq",
+        "required": [
+          "pageSize",
+          "current"
+        ],
+        "x-apifox-orders": [
+          "pageSize",
+          "current",
+          "keyword"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "adminerPutReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 表主键"
+          },
+          "uuid": {
+            "type": "string",
+            "description": " 唯一识别码"
+          },
+          "name": {
+            "type": "string",
+            "description": " 管理员名称"
+          },
+          "avatar": {
+            "type": "string",
+            "description": " 头像"
+          },
+          "passport": {
+            "type": "string",
+            "description": " 账号"
+          },
+          "password": {
+            "type": "string",
+            "description": " 密码"
+          },
+          "email": {
+            "type": "string",
+            "description": " 邮箱"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "default": "0",
+            "description": " 账号状态，是否可用"
+          },
+          "is_super_admin": {
+            "type": "integer",
+            "format": "int64",
+            "default": "0",
+            "description": " 是否为超级管理员"
+          },
+          "login_count": {
+            "type": "integer",
+            "format": "int64",
+            "default": "0",
+            "description": "登录次数"
+          },
+          "last_login": {
+            "type": "integer",
+            "format": "int64",
+            "default": "0",
+            "description": "最后一次登录时间"
+          }
+        },
+        "title": "adminerPutReq",
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "avatar",
+          "passport",
+          "password",
+          "email",
+          "status",
+          "is_super_admin",
+          "login_count",
+          "last_login"
+        ],
+        "x-apifox-orders": [
+          "id",
+          "uuid",
+          "name",
+          "avatar",
+          "passport",
+          "password",
+          "email",
+          "status",
+          "is_super_admin",
+          "login_count",
+          "last_login"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "usersPoolGetReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "usersPoolGetReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "projectPutReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 表主键"
+          },
+          "uuid": {
+            "type": "string",
+            "description": " 唯一识别码"
+          },
+          "name": {
+            "type": "string",
+            "description": " 项目名称"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "default": "0",
+            "description": " 项目状态"
+          }
+        },
+        "title": "projectPutReq",
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "status"
+        ],
+        "x-apifox-orders": [
+          "id",
+          "uuid",
+          "name",
+          "status"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "userDelReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "userDelReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "projectDelReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "projectDelReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "prizeDelReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "prizeDelReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "activityPutReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 表主键"
+          },
+          "uuid": {
+            "type": "string",
+            "description": " 唯一识别码"
+          },
+          "name": {
+            "type": "string",
+            "description": " 活动名称"
+          },
+          "project_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 项目id"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动状态，是否在举办，默认关闭，需手动开启"
+          },
+          "pattern": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 方案: 0私密的，1公开的"
+          },
+          "max_count": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 最大抽奖次数：-1表示无限制，0表示不可抽奖"
+          },
+          "max_prizes": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 最大抽奖次数：-1表示无限制，0表示不可抽奖"
+          },
+          "start_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动开始时间"
+          },
+          "end_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动结束时间"
+          }
+        },
+        "title": "activityPutReq",
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "project_id",
+          "status",
+          "pattern",
+          "max_count",
+          "max_prizes",
+          "start_time",
+          "end_time"
+        ],
+        "x-apifox-orders": [
+          "id",
+          "uuid",
+          "name",
+          "project_id",
+          "status",
+          "pattern",
+          "max_count",
+          "max_prizes",
+          "start_time",
+          "end_time"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "RoleAndDomainReq": {
+        "type": "object",
+        "properties": {
+          "sub": {
+            "type": "string"
+          },
+          "dom": {
+            "type": "string"
+          }
+        },
+        "title": "RoleAndDomainReq",
+        "required": [
+          "sub",
+          "dom"
+        ],
+        "x-apifox-orders": [
+          "sub",
+          "dom"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "prizePutReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 表主键"
+          },
+          "uuid": {
+            "type": "string",
+            "description": " 唯一识别码"
+          },
+          "name": {
+            "type": "string",
+            "description": " 奖品名称"
+          },
+          "image": {
+            "type": "string",
+            "description": " 奖品图片"
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "description": " 奖品价格"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 是否可用"
+          }
+        },
+        "title": "prizePutReq",
+        "required": [
+          "id",
+          "uuid",
+          "name",
+          "image",
+          "price",
+          "status"
+        ],
+        "x-apifox-orders": [
+          "id",
+          "uuid",
+          "name",
+          "image",
+          "price",
+          "status"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "adminerModifyReq": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": " 管理员名称"
+          },
+          "avatar": {
+            "type": "string",
+            "description": " 头像"
+          },
+          "passport": {
+            "type": "string",
+            "description": " 账号"
+          },
+          "password": {
+            "type": "string",
+            "description": " 密码"
+          },
+          "email": {
+            "type": "string",
+            "description": " 邮箱"
+          }
+        },
+        "title": "adminerModifyReq",
+        "required": [
+          "name",
+          "avatar",
+          "passport",
+          "password",
+          "email"
+        ],
+        "x-apifox-orders": [
+          "name",
+          "avatar",
+          "passport",
+          "password",
+          "email"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "prizeGetReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "prizeGetReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "EmailCaptchaReq": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "接收验证码的邮箱地址"
+          }
+        },
+        "title": "EmailCaptchaReq",
+        "required": [
+          "email"
+        ],
+        "x-apifox-orders": [
+          "email"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "luckerListReq": {
+        "type": "object",
+        "properties": {
+          "activity_uuid": {
+            "type": "string",
+            "description": "活动uuid"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int64",
+            "default": "20",
+            "description": "页面大小"
+          },
+          "current": {
+            "type": "integer",
+            "format": "int64",
+            "default": "1",
+            "description": "当前页码"
+          }
+        },
+        "title": "luckerListReq",
+        "required": [
+          "activity_uuid",
+          "pageSize",
+          "current"
+        ],
+        "x-apifox-orders": [
+          "activity_uuid",
+          "pageSize",
+          "current"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "usersPoolDelReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "usersPoolDelReq",
+        "required": [
+          "id"
+        ],
+        "x-apifox-orders": [
+          "id"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "userPutReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 表主键"
+          },
+          "uuid": {
+            "type": "string",
+            "description": " 唯一识别码"
+          },
+          "passport": {
+            "type": "string",
+            "description": " 凭证，可以是手机号或者社交账号，一般是由客户填入"
+          },
+          "email": {
+            "type": "string",
+            "description": " 邮箱"
+          },
+          "phone": {
+            "type": "string",
+            "description": " 手机号"
+          },
+          "name": {
+            "type": "string",
+            "description": " 用户名"
+          },
+          "address": {
+            "type": "string",
+            "description": " 收货地址"
+          },
+          "score": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 积分"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 状态:-1已经封禁，0未授权，1已授权"
+          }
+        },
+        "title": "userPutReq",
+        "required": [
+          "id",
+          "uuid",
+          "passport",
+          "email",
+          "phone",
+          "name",
+          "address",
+          "score",
+          "status"
+        ],
+        "x-apifox-orders": [
+          "id",
+          "uuid",
+          "passport",
+          "email",
+          "phone",
+          "name",
+          "address",
+          "score",
+          "status"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "prizesReq": {
+        "type": "object",
+        "properties": {
+          "activity_uuid": {
+            "type": "string",
+            "description": "活动uuid，用于校验，id是否正确"
+          }
+        },
+        "title": "prizesReq",
+        "required": [
+          "activity_uuid"
+        ],
+        "x-apifox-orders": [
+          "activity_uuid"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "CaptchaReq": {
+        "type": "object",
+        "properties": {
+          "height": {
+            "type": "integer",
+            "format": "int32",
+            "default": "60"
+          },
+          "width": {
+            "type": "integer",
+            "format": "int32",
+            "default": "200"
+          },
+          "BgColor": {
+            "$ref": "#/components/schemas/CaptchaBgColor"
+          }
+        },
+        "title": "CaptchaReq",
+        "required": [
+          "height",
+          "width",
+          "BgColor"
+        ],
+        "x-apifox-orders": [
+          "height",
+          "width",
+          "BgColor"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "luckerPutReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 表主键"
+          },
+          "uuid": {
+            "type": "string",
+            "description": " 唯一识别码"
+          },
+          "user_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 中奖用户id"
+          },
+          "prizes_pool_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 抽中的奖品池id"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 状态: -1放弃领奖，0未领奖，1已领奖"
+          },
+          "luck_date": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 抽奖时间"
+          },
+          "ip": {
+            "type": "string",
+            "description": " ip地址"
+          }
+        },
+        "title": "luckerPutReq",
+        "required": [
+          "id",
+          "uuid",
+          "user_id",
+          "prizes_pool_id",
+          "status",
+          "luck_date",
+          "ip"
+        ],
+        "x-apifox-orders": [
+          "id",
+          "uuid",
+          "user_id",
+          "prizes_pool_id",
+          "status",
+          "luck_date",
+          "ip"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "PrizesPoolPutReq": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 表主键"
+          },
+          "uuid": {
+            "type": "string",
+            "description": " 唯一识别码"
+          },
+          "activity_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动id"
+          },
+          "prize_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 奖品id"
+          },
+          "luck_value": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 幸运值"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 是否可用，0不可用，1可用"
+          },
+          "grade_name": {
+            "type": "string",
+            "description": " 等级名称，如：一等奖"
+          },
+          "is_win": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 是否中奖"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 奖品总数量"
+          },
+          "remain": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 奖品剩余数量"
+          }
+        },
+        "title": "PrizesPoolPutReq",
+        "required": [
+          "id",
+          "uuid",
+          "activity_id",
+          "prize_id",
+          "luck_value",
+          "status",
+          "grade_name",
+          "is_win",
+          "number",
+          "remain"
+        ],
+        "x-apifox-orders": [
+          "id",
+          "uuid",
+          "activity_id",
+          "prize_id",
+          "luck_value",
+          "status",
+          "grade_name",
+          "is_win",
+          "number",
+          "remain"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "loginReq": {
+        "type": "object",
+        "properties": {
+          "passport": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "autoLogin": {
+            "type": "boolean",
+            "format": "boolean",
+            "default": "false"
+          },
+          "captcha_id": {
+            "type": "string",
+            "description": "验证码ID"
+          },
+          "solution": {
+            "type": "string",
+            "description": "验证码答案"
+          }
+        },
+        "title": "loginReq",
+        "required": [
+          "passport",
+          "password",
+          "autoLogin",
+          "captcha_id",
+          "solution"
+        ],
+        "x-apifox-orders": [
+          "passport",
+          "password",
+          "autoLogin",
+          "captcha_id",
+          "solution"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "BaseResp": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "format": "boolean",
+            "description": "【响应状态】"
+          },
+          "message": {
+            "type": "string",
+            "description": "【给予的提示信息】"
+          },
+          "data": {
+            "type": "object",
+            "description": "【选填】响应的业务数据",
+            "x-apifox-orders": [],
+            "properties": {},
+            "x-apifox-ignore-properties": []
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 【选填】数据总个数"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 【选填】单页数量"
+          },
+          "current": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 【选填】当前页码，current与antd前端对接"
+          },
+          "totalPage": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 【选填】自增项，总共有多少页，根据前端的pageSize来计算"
+          },
+          "errorCode": {
+            "type": "integer",
+            "format": "int32",
+            "description": " 【选填】错误类型代码：400错误请求，401未授权，500服务器内部错误，200成功"
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": " 【选填】向用户显示消息"
+          },
+          "traceMessage": {
+            "type": "string",
+            "description": " 【选填】调试错误信息，请勿在生产环境下使用，可有可无"
+          },
+          "showType": {
+            "type": "integer",
+            "format": "int32",
+            "description": " 【选填】错误显示类型：0.不提示错误;1.警告信息提示；2.错误信息提示；4.通知提示；9.页面跳转"
+          },
+          "traceId": {
+            "type": "string",
+            "description": " 【选填】方便后端故障排除：唯一的请求ID"
+          },
+          "host": {
+            "type": "string",
+            "description": " 【选填】方便后端故障排除：当前访问服务器的主机"
+          }
+        },
+        "title": "BaseResp",
+        "required": [
+          "success"
+        ],
+        "x-apifox-orders": [
+          "success",
+          "message",
+          "data",
+          "total",
+          "pageSize",
+          "current",
+          "totalPage",
+          "errorCode",
+          "errorMessage",
+          "traceMessage",
+          "showType",
+          "traceId",
+          "host"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "PrizesPoolAddReq": {
+        "type": "object",
+        "properties": {
+          "activity_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 活动id"
+          },
+          "prize_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 奖品id"
+          },
+          "luck_value": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 幸运值"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 是否可用，0不可用，1可用"
+          },
+          "grade_name": {
+            "type": "string",
+            "description": " 等级名称，如：一等奖"
+          },
+          "is_win": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 是否中奖"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 奖品总数量"
+          },
+          "remain": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 奖品剩余数量"
+          }
+        },
+        "title": "PrizesPoolAddReq",
+        "required": [
+          "activity_id",
+          "prize_id",
+          "luck_value",
+          "status",
+          "grade_name",
+          "is_win",
+          "number",
+          "remain"
+        ],
+        "x-apifox-orders": [
+          "activity_id",
+          "prize_id",
+          "luck_value",
+          "status",
+          "grade_name",
+          "is_win",
+          "number",
+          "remain"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "identifyReq": {
+        "type": "object",
+        "properties": {
+          "passport": {
+            "type": "string",
+            "description": "凭证"
+          }
+        },
+        "title": "identifyReq",
+        "required": [
+          "passport"
+        ],
+        "x-apifox-orders": [
+          "passport"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "JwtToken": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "access_expire": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "refresh_after": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "title": "JwtToken",
+        "required": [
+          "access_token",
+          "access_expire",
+          "refresh_after"
+        ],
+        "x-apifox-orders": [
+          "access_token",
+          "access_expire",
+          "refresh_after"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "adminerAddReq": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": " 管理员名称"
+          },
+          "avatar": {
+            "type": "string",
+            "description": " 头像"
+          },
+          "passport": {
+            "type": "string",
+            "description": " 账号"
+          },
+          "password": {
+            "type": "string",
+            "description": " 密码"
+          },
+          "email": {
+            "type": "string",
+            "description": " 邮箱"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "default": "0",
+            "description": " 账号状态，是否可用"
+          },
+          "is_super_admin": {
+            "type": "integer",
+            "format": "int64",
+            "default": "0",
+            "description": " 是否为超级管理员"
+          }
+        },
+        "title": "adminerAddReq",
+        "required": [
+          "name",
+          "avatar",
+          "passport",
+          "password",
+          "email",
+          "status",
+          "is_super_admin"
+        ],
+        "x-apifox-orders": [
+          "name",
+          "avatar",
+          "passport",
+          "password",
+          "email",
+          "status",
+          "is_super_admin"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "PoliciesReq": {
+        "type": "object",
+        "properties": {
+          "rules": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PolicyReq"
+            }
+          }
+        },
+        "title": "PoliciesReq",
+        "required": [
+          "rules"
+        ],
+        "x-apifox-orders": [
+          "rules"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "CaptchaBgColor": {
+        "type": "object",
+        "properties": {
+          "R": {
+            "type": "object",
+            "properties": {},
+            "x-apifox-ignore-properties": [],
+            "x-apifox-orders": []
+          },
+          "G": {
+            "type": "object",
+            "properties": {},
+            "x-apifox-ignore-properties": [],
+            "x-apifox-orders": []
+          },
+          "B": {
+            "type": "object",
+            "properties": {},
+            "x-apifox-ignore-properties": [],
+            "x-apifox-orders": []
+          },
+          "A": {
+            "type": "object",
+            "properties": {},
+            "x-apifox-ignore-properties": [],
+            "x-apifox-orders": []
+          }
+        },
+        "title": "CaptchaBgColor",
+        "required": [
+          "R",
+          "G",
+          "B",
+          "A"
+        ],
+        "x-apifox-orders": [
+          "R",
+          "G",
+          "B",
+          "A"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "searchReq": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "description": "查询关键词"
+          }
+        },
+        "title": "searchReq",
+        "required": [
+          "keyword"
+        ],
+        "x-apifox-orders": [
+          "keyword"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "luckerAddReq": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 中奖用户id"
+          },
+          "prizes_pool_id": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 抽中的奖品池id"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 状态: -1放弃领奖，0未领奖，1已领奖"
+          },
+          "luck_date": {
+            "type": "integer",
+            "format": "int64",
+            "description": " 抽奖时间"
+          },
+          "ip": {
+            "type": "string",
+            "description": " ip地址"
+          }
+        },
+        "title": "luckerAddReq",
+        "required": [
+          "user_id",
+          "prizes_pool_id",
+          "status",
+          "luck_date",
+          "ip"
+        ],
+        "x-apifox-orders": [
+          "user_id",
+          "prizes_pool_id",
+          "status",
+          "luck_date",
+          "ip"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "DomainReq": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string"
+          }
+        },
+        "title": "DomainReq",
+        "required": [
+          "domain"
+        ],
+        "x-apifox-orders": [
+          "domain"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "DownloadReq": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string"
+          }
+        },
+        "title": "DownloadReq",
+        "required": [
+          "file"
+        ],
+        "x-apifox-orders": [
+          "file"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      },
+      "CaptchaInfo": {
+        "type": "object",
+        "properties": {
+          "captcha_id": {
+            "type": "string",
+            "description": "验证码Key"
+          },
+          "base64_image": {
+            "type": "string",
+            "description": "base46图片"
+          }
+        },
+        "title": "CaptchaInfo",
+        "required": [
+          "captcha_id",
+          "base64_image"
+        ],
+        "x-apifox-orders": [
+          "captcha_id",
+          "base64_image"
+        ],
+        "x-apifox-ignore-properties": [],
+        "x-apifox-folder": "Schemas"
+      }
+    }
+  }
+}
