@@ -15,7 +15,7 @@ const Settings: LayoutSettings & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'Luck Draw',
+  title: 'LuckDraw Manage',
   pwa: false,
   logo: 'https://img.alicdn.com/imgextra/i1/917298378/O1CN01M5YjWo2BlB0mF5rQu_!!917298378.png',
   iconfontUrl: '',

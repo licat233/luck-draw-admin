@@ -57,19 +57,40 @@ export function currentUser(options?: { [key: string]: any }) {
 }
 
 /**
- * @description "获取活动列表"
- * @param req
+ * @description "上传头像"
  */
-export function activityList(req: components.ListReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/activity/list", req, options)
+export function uploadAvatar(options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/uploadAvatar", options)
+}
+
+/**
+ * @description "上传logo"
+ */
+export function uploadLogo(options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/uploadLogo", options)
+}
+
+/**
+ * @description "上传图片"
+ */
+export function uploadImg(options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/uploadImg", options)
+}
+
+/**
+ * @description "获取活动列表"
+ * @param params
+ */
+export function activityList(params: components.ListReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/activity/list", params, options)
 }
 
 /**
  * @description "获取活动信息"
- * @param req
+ * @param params
  */
-export function activityInfo(req: components.ActivityGetReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/activity", req, options)
+export function activityInfo(params: components.ActivityGetReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/activity", params, options)
 }
 
 /**
@@ -97,19 +118,34 @@ export function activityDel(req: components.ActivityDelReq, options?: { [key: st
 }
 
 /**
- * @description "获取管理员列表"
- * @param req
+ * @description "枚举列表"
  */
-export function adminerList(req: components.ListReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/adminer/list", req, options)
+export function activityEnumList(options?: { [key: string]: any }) {
+	return webapi.get<Array<components.Enum>>("/v1/api/admin/activity/enumList", options)
+}
+
+/**
+ * @description "指定项目的活动"
+ * @param params
+ */
+export function projectActivity(params: components.ProjectActivityReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/activity/projectActivity", params, options)
+}
+
+/**
+ * @description "获取管理员列表"
+ * @param params
+ */
+export function adminerList(params: components.ListReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/adminer/list", params, options)
 }
 
 /**
  * @description "获取管理员信息"
- * @param req
+ * @param params
  */
-export function adminerInfo(req: components.AdminerGetReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/adminer", req, options)
+export function adminerInfo(params: components.AdminerGetReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/adminer", params, options)
 }
 
 /**
@@ -145,23 +181,38 @@ export function modify(req: components.AdminerModifyReq, options?: { [key: strin
 }
 
 /**
- * @description "获取抽奖者列表"
- * @param req
+ * @description "枚举列表"
  */
-export function luckerList(req: components.ListReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/lucker/list", req, options)
+export function adminerEnumList(options?: { [key: string]: any }) {
+	return webapi.get<Array<components.Enum>>("/v1/api/admin/adminer/enumList", options)
 }
 
 /**
- * @description "获取抽奖者信息"
- * @param req
+ * @description "获取抽奖单列表"
+ * @param params
  */
-export function luckerInfo(req: components.LuckerGetReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/lucker", req, options)
+export function luckerList(params: components.ListReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/lucker/list", params, options)
 }
 
 /**
- * @description "添加抽奖者"
+ * @description "获取抽奖单详细列表"
+ * @param params
+ */
+export function luckerDetails(params: components.LuckerDetailsReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/lucker/details", params, options)
+}
+
+/**
+ * @description "获取抽奖单信息"
+ * @param params
+ */
+export function luckerInfo(params: components.LuckerGetReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/lucker", params, options)
+}
+
+/**
+ * @description "添加抽奖单"
  * @param req
  */
 export function luckerAdd(req: components.LuckerAddReq, options?: { [key: string]: any }) {
@@ -169,7 +220,7 @@ export function luckerAdd(req: components.LuckerAddReq, options?: { [key: string
 }
 
 /**
- * @description "编辑抽奖者"
+ * @description "编辑抽奖单"
  * @param req
  */
 export function luckerPut(req: components.LuckerPutReq, options?: { [key: string]: any }) {
@@ -177,7 +228,7 @@ export function luckerPut(req: components.LuckerPutReq, options?: { [key: string
 }
 
 /**
- * @description "删除抽奖者"
+ * @description "删除抽奖单"
  * @param req
  */
 export function luckerDel(req: components.LuckerDelReq, options?: { [key: string]: any }) {
@@ -185,19 +236,26 @@ export function luckerDel(req: components.LuckerDelReq, options?: { [key: string
 }
 
 /**
- * @description "获取奖品列表"
- * @param req
+ * @description "枚举列表"
  */
-export function prizeList(req: components.ListReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/prize/list", req, options)
+export function luckerEnumList(options?: { [key: string]: any }) {
+	return webapi.get<Array<components.Enum>>("/v1/api/admin/lucker/enumList", options)
+}
+
+/**
+ * @description "获取奖品列表"
+ * @param params
+ */
+export function prizeList(params: components.ListReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/prize/list", params, options)
 }
 
 /**
  * @description "获取奖品信息"
- * @param req
+ * @param params
  */
-export function prizeInfo(req: components.PrizeGetReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/prize", req, options)
+export function prizeInfo(params: components.PrizeGetReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/prize", params, options)
 }
 
 /**
@@ -225,19 +283,81 @@ export function prizeDel(req: components.PrizeDelReq, options?: { [key: string]:
 }
 
 /**
- * @description "获取奖品池列表"
+ * @description "枚举列表"
+ */
+export function prizeEnumList(options?: { [key: string]: any }) {
+	return webapi.get<Array<components.Enum>>("/v1/api/admin/prize/enumList", options)
+}
+
+/**
+ * @description "获取某活动奖品池的奖品"
+ * @param params
+ */
+export function activityPrizes(params: components.ActivityPrizesReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/prize/activityPrizes", params, options)
+}
+
+/**
+ * @description "获取奖品级别列表"
+ * @param params
+ */
+export function prizeGradeList(params: components.ListReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/prizeGrade/list", params, options)
+}
+
+/**
+ * @description "获取奖品级别信息"
+ * @param params
+ */
+export function prizeGradeInfo(params: components.PrizeGradeGetReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/prizeGrade", params, options)
+}
+
+/**
+ * @description "添加奖品级别"
  * @param req
  */
-export function PrizesPoolList(req: components.ListReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/PrizesPool/list", req, options)
+export function prizeGradeAdd(req: components.PrizeGradeAddReq, options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/prizeGrade", req, options)
+}
+
+/**
+ * @description "编辑奖品级别"
+ * @param req
+ */
+export function prizeGradePut(req: components.PrizeGradePutReq, options?: { [key: string]: any }) {
+	return webapi.put<components.BaseResp>("/v1/api/admin/prizeGrade", req, options)
+}
+
+/**
+ * @description "删除奖品级别"
+ * @param req
+ */
+export function prizeGradeDel(req: components.PrizeGradeDelReq, options?: { [key: string]: any }) {
+	return webapi.delete<components.BaseResp>("/v1/api/admin/prizeGrade", req, options)
+}
+
+/**
+ * @description "枚举列表"
+ */
+export function prizeGradeEnumList(options?: { [key: string]: any }) {
+	return webapi.get<Array<components.Enum>>("/v1/api/admin/prizeGrade/enumList", options)
+}
+
+/**
+ * @description "获取奖品池列表"
+ * @param params
+ */
+export function PrizesPoolList(params: components.ListReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/PrizesPool/list", params, options)
 }
 
 /**
  * @description "获取奖品池信息"
- * @param req
+ * @param params
  */
-export function PrizesPoolInfo(req: components.PrizesPoolGetReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/PrizesPool", req, options)
+export function PrizesPoolInfo(params: components.PrizesPoolGetReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/PrizesPool", params, options)
 }
 
 /**
@@ -265,19 +385,27 @@ export function PrizesPoolDel(req: components.PrizesPoolDelReq, options?: { [key
 }
 
 /**
- * @description "获取项目列表"
- * @param req
+ * @description "获取某活动的奖品池"
+ * @param params
  */
-export function projectList(req: components.ListReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/project/list", req, options)
+export function searchPrizesPool(params: components.SearchPrizesPoolParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/PrizesPool/search", params, options)
+}
+
+/**
+ * @description "获取项目列表"
+ * @param params
+ */
+export function projectList(params: components.ListReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/project/list", params, options)
 }
 
 /**
  * @description "获取项目信息"
- * @param req
+ * @param params
  */
-export function projectInfo(req: components.ProjectGetReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/project", req, options)
+export function projectInfo(params: components.ProjectGetReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/project", params, options)
 }
 
 /**
@@ -302,6 +430,13 @@ export function projectPut(req: components.ProjectPutReq, options?: { [key: stri
  */
 export function projectDel(req: components.ProjectDelReq, options?: { [key: string]: any }) {
 	return webapi.delete<components.BaseResp>("/v1/api/admin/project", req, options)
+}
+
+/**
+ * @description "枚举列表"
+ */
+export function projectEnumList(options?: { [key: string]: any }) {
+	return webapi.get<Array<components.Enum>>("/v1/api/admin/project/enumList", options)
 }
 
 /**
@@ -407,18 +542,18 @@ export function getPermissionsForUserInDomain(req: components.RoleAndDomainReq, 
 
 /**
  * @description "获取用户列表"
- * @param req
+ * @param params
  */
-export function userList(req: components.ListReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/user/list", req, options)
+export function userList(params: components.ListReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/user/list", params, options)
 }
 
 /**
  * @description "获取用户信息"
- * @param req
+ * @param params
  */
-export function userInfo(req: components.UserGetReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/user", req, options)
+export function userInfo(params: components.UserGetReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/user", params, options)
 }
 
 /**
@@ -446,19 +581,26 @@ export function userDel(req: components.UserDelReq, options?: { [key: string]: a
 }
 
 /**
- * @description "获取用户池列表"
- * @param req
+ * @description "枚举列表"
  */
-export function usersPoolList(req: components.ListReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/usersPool/list", req, options)
+export function userEnumList(options?: { [key: string]: any }) {
+	return webapi.get<Array<components.Enum>>("/v1/api/admin/user/enumList", options)
+}
+
+/**
+ * @description "获取用户池列表"
+ * @param params
+ */
+export function usersPoolList(params: components.ListReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/usersPool/list", params, options)
 }
 
 /**
  * @description "获取用户池信息"
- * @param req
+ * @param params
  */
-export function usersPoolInfo(req: components.UsersPoolGetReq, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/usersPool", req, options)
+export function usersPoolInfo(params: components.UsersPoolGetReqParams, options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/usersPool", params, options)
 }
 
 /**

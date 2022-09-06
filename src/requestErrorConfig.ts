@@ -34,7 +34,7 @@ export const errorConfig: RequestConfig = {
       const { success, data, errorCode, errorMessage, showType, traceMessage } =
         res as unknown as ResponseErrorStruct;
       if (!success) {
-        const error: any = new Error(errorMessage);
+        const error: any = new Error(errorMessage||"request failed");
         error.name = 'BizError';
         error.info = { success, errorCode, errorMessage, showType, data, traceMessage };
         throw error; // 抛出自制的错误

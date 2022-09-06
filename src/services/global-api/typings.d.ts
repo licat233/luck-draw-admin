@@ -22,4 +22,10 @@ declare namespace API {
     access_expire: number
     refresh_after: number
   }
+
+  type ListReq = {
+    pageSize?: number // 页面大小
+    current?: number // 当前页码
+    keyword?: string // 关键词，可选
+  }
 }

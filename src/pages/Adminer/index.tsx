@@ -1,46 +1,36 @@
-// import { addRule, removeRule, rule, updateRule } from '@/services/ant-design-pro/api';
-import { adminerAdd, adminerDel, adminerList, adminerPut } from '@/services/global-api/admin-custom';
-import { DownOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteTwoTone, DownOutlined, EditTwoTone, PlusOutlined } from '@ant-design/icons';
 import { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
-  FooterToolbar,
-  ModalForm,
   PageContainer,
   ProDescriptions,
-  ProFormText,
-  ProFormTextArea,
   ProTable,
 } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, Drawer, Dropdown, Modal, Menu, message, Radio, Input } from 'antd';
+import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
-import { useRequest } from 'umi';
-// import type { FormValueType } from './components/UpdateForm';
-import UpdateForm from './components/UpdateForm';
-import { Adminer, AdminerAddReq, AdminerPutReq, AdminerDelReq } from "@/services/global-api/adminComponents";
-import styles from './style.less';
-
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
-const { Search } = Input;
+import dayjs from 'dayjs';
+import { ItemType } from 'antd/lib/menu/hooks/useItems';
+import { adminerAdd as add , adminerDel as del, adminerList as list, adminerPut as put} from '@/services/global-api/admin-custom';
+import { Adminer as Item, AdminerAddReq as AddReq, AdminerPutReq as PutReq, ListReqParams as Params} from "@/services/global-api/adminComponents";
+import OperationModal from './components/OperationModal';
 
 /**
  * @en-US Add node
  * @zh-CN 添加节点
- * @param fields
+ * @param record
  */
 
-const handleAdd = async (fields: AdminerAddReq) => {
+const handleAdd = async (record: AddReq) => {
   const hide = message.loading('正在添加');
 
   try {
-    await adminerAdd({ ...fields });
+    await add(record);
     hide();
-    message.success('Added successfully');
+    message.success('添加成功');
     return true;
   } catch (error) {
     hide();
-    message.error('Adding failed, please try again!');
+    message.error('添加失败');
     return false;
   }
 };
@@ -48,20 +38,19 @@ const handleAdd = async (fields: AdminerAddReq) => {
  * @en-US Update node
  * @zh-CN 更新节点
  *
- * @param fields
+ * @param record
  */
 
-const handleUpdate = async (fields: AdminerPutReq) => {
-  const hide = message.loading('Configuring');
-
+const handleUpdate = async (record: PutReq) => {
+  const hide = message.loading('更新中...');
   try {
-    await adminerPut({ ...fields });
+    await put(record);
     hide();
-    message.success('Configuration is successful');
+    message.success('更新成功');
     return true;
   } catch (error) {
     hide();
-    message.error('Configuration failed, please try again!');
+    message.error('更新失败');
     return false;
   }
 };
@@ -70,55 +59,58 @@ const handleUpdate = async (fields: AdminerPutReq) => {
  *  Delete node
  * @zh-CN 删除节点
  *
- * @param selectedRow
+ * @param id
  */
 
 const handleRemove = async (id: number) => {
-  const hide = message.loading('正在删除');
+  const hide = message.loading('正在删除...');
   if (typeof id === 'undefined') return true;
 
   try {
-    await adminerDel({ id });
+    await del({ id });
     hide();
-    message.success('Deleted successfully and will refresh soon');
+    message.success('删除成功');
     return true;
   } catch (error) {
     hide();
-    message.error('Delete failed, please try again');
+    message.error('删除失败');
     return false;
   }
 };
 
 
-
 const AdminerList: React.FC = () => {
-  /**
-   * @en-US Pop-up window of new window
-   * @zh-CN 新建窗口的弹窗
-   *  */
-  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  /**
-   * @en-US The pop-up window of the distribution update window
-   * @zh-CN 分布更新窗口的弹窗
-   * */
-
-  const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
 
   const [done, setDone] = useState<boolean>(false);
   const [visible, setVisible] = useState<boolean>(false);
-  const [current, setCurrent] = useState<Adminer>();
+  const [current, setCurrent] = useState<Item>();
 
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
    * */
 
-
   const defaultAvatar = "https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png";
 
-  const columns: ProColumns<Adminer>[] = [
+  const columns: ProColumns<Item>[] = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      valueType: 'digit',
+      hideInTable: true,
+      hideInSearch: true,
+      hideInForm: true,
+    },
+    {
+      title: 'UUID',
+      dataIndex: 'uuid',
+      valueType: 'text',
+      hideInTable: true,
+      hideInSearch: true,
+      hideInForm: true,
+    },
     {
       title: '头像',
       dataIndex: 'avatar',
@@ -130,7 +122,7 @@ const AdminerList: React.FC = () => {
       }
     },
     {
-      title: '管理员名称',
+      title: '名称',
       dataIndex: 'name',
       // tip: 'The adminer uuid is the unique key',
       render: (dom, entity) => {
@@ -152,50 +144,47 @@ const AdminerList: React.FC = () => {
       valueType: 'text',
     },
     {
+      title: '密码',
+      dataIndex: 'password',
+      valueType: 'password',
+      hideInTable: true,
+    },
+    {
       title: '邮箱',
       dataIndex: 'email',
       valueType: 'text',
     },
-    // {
-    //   title: '服务调用次数',
-    //   dataIndex: 'email',
-    //   sorter: true,
-    //   hideInForm: true,
-    //   renderText: (val: string) => `${val}${'万'}`,
-    // },
     {
       title: '状态',
       dataIndex: 'status',
-      hideInForm: true,
       sorter: true,
       valueEnum: {
         0: {
           text: '关闭',
-          status: 'disabled',
+          status: 'Default',
         },
         1: {
           text: '正常',
-          status: 'normal',
+          status: 'Success',
         },
         2: {
           text: '审核中',
-          status: 'reviewed',
+          status: 'Error',
         },
       },
     },
     {
       title: '超管?',
       dataIndex: 'is_super_admin',
-      hideInForm: true,
       sorter: true,
       valueEnum: {
         0: {
           text: '否',
-          status: 'disabled',
+          status: 'Nomarl',
         },
         1: {
           text: '是',
-          status: 'normal',
+          status: 'Nomarl',
         },
       },
     },
@@ -210,83 +199,70 @@ const AdminerList: React.FC = () => {
       sorter: true,
       dataIndex: 'last_login',
       valueType: 'dateTime',
+      hideInForm: true,
+      render: (_, record) => {
+        if (!record.last_login) {
+          return "数据异常"
+        }
+        return dayjs(record.last_login * 1000).format('YYYY-MM-DD HH:mm:ss');
+      },
     },
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
-        <a
-          key="config"
-          onClick={() => {
-            handleUpdateModalVisible(true);
-            setCurrent(record);
-          }}
-        >
-          编辑
-        </a>,
         <MoreBtn key="more" item={record} />,
       ],
     },
   ];
 
+  const operationList = (): ItemType[] => {
+    return [
+      {
+        key: 'edit',
+        itemIcon: <EditTwoTone twoToneColor='#245cfc'></EditTwoTone>,
+        label: '编辑'
+      },
+      {
+        key: 'delete',
+        itemIcon: <DeleteTwoTone twoToneColor='#ce2e3f'></DeleteTwoTone>,
+        danger: true,
+        label: '删除',
+      },
+    ]
+  }
+
   const MoreBtn: React.FC<{
-    item: Adminer;
+    item: Item;
   }> = ({ item }) => (
     <Dropdown
       overlay={
-        <Menu onClick={({ key }) => editAndDelete(key, item)}>
-          <Menu.Item key="edit">编辑</Menu.Item>
-          <Menu.Item key="delete">删除</Menu.Item>
+        <Menu
+          onClick={({ key }) => editAndDelete(key, item)}
+          items={operationList()}
+        >
         </Menu>
       }
     >
-      <a>
-        更多 <DownOutlined />
+      <a href="#!" onClick={(e) => {e.preventDefault()}}>
+        操作 <DownOutlined />
       </a>
     </Dropdown>
   );
 
-
-  const {
-    data: listData,
-    loading,
-    mutate,
-  } = useRequest(() => {
-    return adminerList({
-      pageSize: 20,
-      current: 1,
-    });
-  });
-
-  const { run: postRun } = useRequest(
-    (method, params) => {
-      if (method === 'remove') {
-        return handleRemove(params);
-      }
-      if (method === 'update') {
-        return handleUpdate(params);
-      }
-      return handleAdd(params);
-    },
-    {
-      manual: true,
-      onSuccess: (result) => {
-        mutate(result);
-      },
-    },
-  );
-
-  const showEditModal = (item: Adminer) => {
+  const showEditModal = (item: Item) => {
     setVisible(true);
     setCurrent(item);
   };
 
-  const editAndDelete = (key: string | number, currentItem: Adminer) => {
-    if (key === 'edit') showEditModal(currentItem);
+  const editAndDelete = (key: string | number, currentItem: Item) => {
+    if (key === 'edit') {
+      showEditModal(currentItem);
+    }
     else if (key === 'delete') {
       Modal.confirm({
-        title: '删除管理员',
+        title: '删除警告',
         content: '确定删除该管理员吗？',
         okText: '确认',
         cancelText: '取消',
@@ -301,91 +277,54 @@ const AdminerList: React.FC = () => {
     setCurrent(undefined);
   };
 
-  const handleSubmit = (values: Adminer) => {
-    setDone(true);
-    const method = values?.id ? 'update' : 'add';
-    postRun(method, values);
+  const handleSubmit = async (record: Item): Promise<boolean> => {
+    const method = record?.id ? 'update' : 'add';
+    let ok = false
+    if (method === 'update') {
+      ok = await handleUpdate(record)
+    } if (method === 'add') {
+      ok = await handleAdd(record)
+    }
+    setDone(ok);
+    //刷新列表
+    if (actionRef.current && ok) {
+      actionRef.current.reload();
+    }
+    return ok
   };
 
   return (
     <PageContainer>
-      <ProTable<Adminer, API.PageParams>
+      <ProTable<Item, Params>
         headerTitle={'管理员列表'}
         actionRef={actionRef}
-        rowKey="key"
-        search={{
-          labelWidth: 120,
-        }}
+        rowKey="id"
+        search={false}
         toolBarRender={() => [
           <Button
             type="primary"
             key="primary"
             onClick={() => {
-              handleModalVisible(true);
+              setVisible(true);
             }}
           >
             <PlusOutlined /> 新建
           </Button>,
         ]}
-        request={adminerList}
+        params={{
+          pageSize: 20,
+          current: 1,
+          keyword: "",
+        }}
+        request={list}
         columns={columns}
-      // rowSelection={{
-      //   onChange: (_, selectedRows) => {
-      //     setSelectedRows(selectedRows);
-      //   },
-      // }}
       />
-      <ModalForm
-        title={'新建管理员'}
-        width="400px"
-        visible={createModalVisible}
-        onVisibleChange={handleModalVisible}
-        onFinish={async (value) => {
-          const success = await handleAdd(value as Adminer);
-
-          if (success) {
-            handleModalVisible(false);
-
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
-        }}
-      >
-        <ProFormText
-          rules={[
-            {
-              required: true,
-              message: '管理员名称为必填项',
-            },
-          ]}
-          width="md"
-          name="name"
-        />
-        <ProFormTextArea width="md" name="desc" />
-      </ModalForm>
-      <UpdateForm
-        onSubmit={async (value) => {
-          const success = await handleUpdate(value);
-
-          if (success) {
-            handleUpdateModalVisible(false);
-            setCurrent(undefined);
-
-            if (actionRef.current) {
-              actionRef.current.reload();
-            }
-          }
-        }}
-        onCancel={() => {
-          handleUpdateModalVisible(false);
-
-          if (!showDetail) {
-            setCurrent(undefined);
-          }
-        }}
-        updateModalVisible={updateModalVisible}
-        values={current}
+      <OperationModal
+        done={done}
+        visible={visible}
+        current={current}
+        onDone={handleDone}
+        onSubmit={handleSubmit}
       />
 
       <Drawer
@@ -398,7 +337,7 @@ const AdminerList: React.FC = () => {
         closable={false}
       >
         {current?.name && (
-          <ProDescriptions<Adminer>
+          <ProDescriptions<Item>
             column={2}
             title={current?.name}
             request={async () => ({
@@ -407,7 +346,7 @@ const AdminerList: React.FC = () => {
             params={{
               id: current?.name,
             }}
-            columns={columns as ProDescriptionsItemProps<Adminer>[]}
+            columns={columns as ProDescriptionsItemProps<Item>[]}
           />
         )}
       </Drawer>

@@ -175,6 +175,10 @@ const Login: React.FC = () => {
                     required: true,
                     message: '用户名是必填项！',
                   },
+                  {
+                    pattern: /^[A-Za-z0-9]{3,20}$/,
+                    message: '用户名由3-20位数字或者字母组成',
+                  },
                 ]}
               />
               <ProFormText.Password
@@ -188,6 +192,10 @@ const Login: React.FC = () => {
                   {
                     required: true,
                     message: '密码是必填项！',
+                  },
+                  {
+                    pattern: /^.{6,34}$/,
+                    message: '密码长度有误',
                   },
                 ]}
               />

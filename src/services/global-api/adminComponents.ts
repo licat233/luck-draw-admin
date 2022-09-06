@@ -60,6 +60,9 @@ export interface DownloadReqParams {
 }
 
 export interface IdReq {
+}
+
+export interface IdReqParams {
 	id: number
 }
 
@@ -68,14 +71,21 @@ export interface BatchIdReq {
 }
 
 export interface ListReq {
-	pageSize?: number // 页面大小
-	current?: number // 当前页码
+}
+
+export interface ListReqParams {
+	pageSize: number // 页面大小
+	current: number // 当前页码
+	keyword: string // 关键词，可选
 }
 
 export interface SearchReq {
-	keyword?: string // 关键词，可选
-	pageSize?: number // 页面大小
-	current?: number // 当前页码
+}
+
+export interface SearchReqParams {
+	keyword: string // 关键词，可选
+	pageSize: number // 页面大小
+	current: number // 当前页码
 }
 
 export interface JwtToken {
@@ -95,6 +105,11 @@ export interface EmailCaptchaVerifyReq {
 	solution: string
 }
 
+export interface Enum {
+	label: any
+	value: any
+}
+
 export interface Activity {
 	id: number // 表主键
 	uuid: string // 唯一识别码
@@ -102,8 +117,8 @@ export interface Activity {
 	project_id: number // 项目id
 	status: number // 活动状态，是否在举办，默认关闭，需手动开启
 	pattern: number // 方案: 0私密的，1公开的
-	max_count: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
-	max_prizes: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
+	max_count: number // 单人最大抽奖次数：-1表示无限制，0表示不可抽奖
+	max_prizes: number // 单人最大获奖数：-1表示无限制，0表示不可抽奖
 	start_time: number // 活动开始时间
 	end_time: number // 活动结束时间
 	create_at: number // 创建时间
@@ -113,6 +128,9 @@ export interface Activity {
 }
 
 export interface ActivityGetReq {
+}
+
+export interface ActivityGetReqParams {
 	id: number
 }
 
@@ -121,8 +139,8 @@ export interface ActivityAddReq {
 	project_id: number // 项目id
 	status: number // 活动状态，是否在举办，默认关闭，需手动开启
 	pattern: number // 方案: 0私密的，1公开的
-	max_count: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
-	max_prizes: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
+	max_count: number // 单人最大抽奖次数：-1表示无限制，0表示不可抽奖
+	max_prizes: number // 单人最大获奖数：-1表示无限制，0表示不可抽奖
 	start_time: number // 活动开始时间
 	end_time: number // 活动结束时间
 }
@@ -134,14 +152,21 @@ export interface ActivityPutReq {
 	project_id: number // 项目id
 	status: number // 活动状态，是否在举办，默认关闭，需手动开启
 	pattern: number // 方案: 0私密的，1公开的
-	max_count: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
-	max_prizes: number // 最大抽奖次数：-1表示无限制，0表示不可抽奖
+	max_count: number // 单人最大抽奖次数：-1表示无限制，0表示不可抽奖
+	max_prizes: number // 单人最大获奖数：-1表示无限制，0表示不可抽奖
 	start_time: number // 活动开始时间
 	end_time: number // 活动结束时间
 }
 
 export interface ActivityDelReq {
 	id: number
+}
+
+export interface ProjectActivityReq {
+}
+
+export interface ProjectActivityReqParams {
+	project_id: number // 所属项目id，-1表示无限制
 }
 
 export interface Adminer {
@@ -163,6 +188,9 @@ export interface Adminer {
 }
 
 export interface AdminerGetReq {
+}
+
+export interface AdminerGetReqParams {
 	id: number
 }
 
@@ -217,6 +245,9 @@ export interface Lucker {
 }
 
 export interface LuckerGetReq {
+}
+
+export interface LuckerGetReqParams {
 	id: number
 }
 
@@ -225,7 +256,6 @@ export interface LuckerAddReq {
 	prizes_pool_id: number // 抽中的奖品池id
 	status: number // 状态: -1放弃领奖，0未领奖，1已领奖
 	luck_date: number // 抽奖时间
-	ip: string // ip地址
 }
 
 export interface LuckerPutReq {
@@ -235,11 +265,30 @@ export interface LuckerPutReq {
 	prizes_pool_id: number // 抽中的奖品池id
 	status: number // 状态: -1放弃领奖，0未领奖，1已领奖
 	luck_date: number // 抽奖时间
-	ip: string // ip地址
 }
 
 export interface LuckerDelReq {
 	id: number
+}
+
+export interface LuckerDetailsReq {
+}
+
+export interface LuckerDetailsReqParams {
+	user_id: number // 用户id， -1表示不用 UserId 查询
+	activity_id: number // 活动id, -1表示不用 activityId 查询
+	pageSize: number // 页面大小
+	current: number // 当前页码
+}
+
+export interface LuckerDetails {
+	lucker: Lucker // 中奖信息
+	user: User // 中奖用户信息
+	prizes_pool: PrizesPool // 奖品池信息，奖品池信息
+	prize: Prize // 奖品信息，中奖产品
+	prize_grade: PrizeGrade // 奖品级别，中奖级别
+	activity: Activity // 活动信息，中奖活动，
+	project: Project // 项目信息，中奖项目，
 }
 
 export interface Prize {
@@ -256,6 +305,9 @@ export interface Prize {
 }
 
 export interface PrizeGetReq {
+}
+
+export interface PrizeGetReqParams {
 	id: number
 }
 
@@ -279,6 +331,45 @@ export interface PrizeDelReq {
 	id: number
 }
 
+export interface ActivityPrizesReq {
+}
+
+export interface ActivityPrizesReqParams {
+	activity_id: number // 所属活动id，-1表示无限制
+}
+
+export interface PrizeGrade {
+	id: number // 表主键
+	name: string // 级别名称
+	is_win: number // 是否中奖
+	create_at: number // 创建时间
+	update_at: number // 更新时间
+	is_deleted: number // 是否已被删除
+	delete_at: number // 删除时间
+}
+
+export interface PrizeGradeGetReq {
+}
+
+export interface PrizeGradeGetReqParams {
+	id: number
+}
+
+export interface PrizeGradeAddReq {
+	name: string // 级别名称
+	is_win: number // 是否中奖
+}
+
+export interface PrizeGradePutReq {
+	id: number // 表主键
+	name: string // 级别名称
+	is_win: number // 是否中奖
+}
+
+export interface PrizeGradeDelReq {
+	id: number
+}
+
 export interface PrizesPool {
 	id: number // 表主键
 	uuid: string // 唯一识别码
@@ -286,10 +377,9 @@ export interface PrizesPool {
 	prize_id: number // 奖品id
 	luck_value: number // 幸运值
 	status: number // 是否可用，0不可用，1可用
-	grade_name: string // 等级名称，如：一等奖
-	is_win: number // 是否中奖
+	grade_id: number // 等级id，如：一等奖
 	number: number // 奖品总数量
-	remain: number // 奖品剩余数量
+	remainder: number // 奖品剩余数量
 	create_at: number // 创建时间
 	update_at: number // 更新时间
 	is_deleted: number // 是否已被删除
@@ -297,6 +387,9 @@ export interface PrizesPool {
 }
 
 export interface PrizesPoolGetReq {
+}
+
+export interface PrizesPoolGetReqParams {
 	id: number
 }
 
@@ -305,10 +398,9 @@ export interface PrizesPoolAddReq {
 	prize_id: number // 奖品id
 	luck_value: number // 幸运值
 	status: number // 是否可用，0不可用，1可用
-	grade_name: string // 等级名称，如：一等奖
-	is_win: number // 是否中奖
+	grade_id: number // 等级id，如：一等奖
 	number: number // 奖品总数量
-	remain: number // 奖品剩余数量
+	remainder: number // 奖品剩余数量
 }
 
 export interface PrizesPoolPutReq {
@@ -318,14 +410,20 @@ export interface PrizesPoolPutReq {
 	prize_id: number // 奖品id
 	luck_value: number // 幸运值
 	status: number // 是否可用，0不可用，1可用
-	grade_name: string // 等级名称，如：一等奖
-	is_win: number // 是否中奖
+	grade_id: number // 等级id，如：一等奖
 	number: number // 奖品总数量
-	remain: number // 奖品剩余数量
+	remainder: number // 奖品剩余数量
 }
 
 export interface PrizesPoolDelReq {
 	id: number
+}
+
+export interface SearchPrizesPool {
+}
+
+export interface SearchPrizesPoolParams {
+	activity_id: number // 所属活动id，-1表示无限制
 }
 
 export interface Project {
@@ -340,6 +438,9 @@ export interface Project {
 }
 
 export interface ProjectGetReq {
+}
+
+export interface ProjectGetReqParams {
 	id: number
 }
 
@@ -396,6 +497,9 @@ export interface User {
 }
 
 export interface UserGetReq {
+}
+
+export interface UserGetReqParams {
 	id: number
 }
 
@@ -439,6 +543,9 @@ export interface UsersPool {
 }
 
 export interface UsersPoolGetReq {
+}
+
+export interface UsersPoolGetReqParams {
 	id: number
 }
 

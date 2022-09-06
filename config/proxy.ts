@@ -9,12 +9,22 @@
  *
  * @doc https://umijs.org/docs/guides/proxy
  */
+
+// const domain="https://luck.catli.net";
+const domain = "http://luckdraw.com";
 export default {
   dev: {
     // localhost:8000/v1/api/** -> https://luck.catli.net/v1/api/**
     '/v1/api/': {
       // 要代理的地址
-      target: 'https://luck.catli.net',
+      target: domain,
+      // 配置了这个可以从 http 代理到 https
+      // 依赖 origin 的功能可能需要这个，比如 cookie
+      changeOrigin: true,
+    },
+    '/static/': {
+      // 要代理的地址
+      target: domain,
       // 配置了这个可以从 http 代理到 https
       // 依赖 origin 的功能可能需要这个，比如 cookie
       changeOrigin: true,
@@ -26,14 +36,14 @@ export default {
    */
   test: {
     '/v1/api/': {
-      target: 'https://luck.catli.net',
+      target: domain,
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
   },
   pre: {
     '/v1/api/': {
-      target: 'https://luck.catli.net',
+      target: domain,
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },

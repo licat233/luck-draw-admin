@@ -19,7 +19,7 @@
         "src/.umi/*"
       ],
       "@umijs/max": [
-        "/Users/licat/Desktop/project/luck_draw-ui/admin/node_modules/umi"
+        "/Users/licat/Desktop/project/luck_draw-admin/node_modules/umi"
       ],
       "@umijs/max/typings": [
         "src/.umi/typings"

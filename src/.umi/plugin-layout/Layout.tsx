@@ -6,7 +6,7 @@ import type { IRoute } from 'umi';
 import React, { useMemo } from 'react';
 import {
   ProLayout,
-} from "/Users/licat/Desktop/project/luck_draw-ui/admin/node_modules/@umijs/plugins/node_modules/@ant-design/pro-layout";
+} from "/Users/licat/Desktop/project/luck_draw-admin/node_modules/@umijs/plugins/node_modules/@ant-design/pro-layout";
 import './Layout.less';
 import Logo from './Logo';
 import Exception from './Exception';
@@ -78,7 +78,7 @@ export default (props: any) => {
   "fixedHeader": false,
   "fixSiderbar": true,
   "colorWeak": false,
-  "title": "Luck Draw",
+  "title": "LuckDraw Manage",
   "pwa": false,
   "logo": "https://img.alicdn.com/imgextra/i1/917298378/O1CN01M5YjWo2BlB0mF5rQu_!!917298378.png",
   "iconfontUrl": ""

@@ -1,13 +1,16 @@
 # !/bin/bash
 
-#给予shell文件执行权限：chmod a+x update.sh
-#执行shell文件：./update.shell
+#给予shell文件执行权限：chmod a+x gen.sh
+#执行shell文件：./gen.sh
+
+# domain="https://luck.catli.net"
+domain="http://luckdraw.com"
 
 #更新Components.ts接口文件
 names=("admin" "captcha" "luckdraw")
 for name in ${names[@]}; do
   filename="${name}Components.ts"
-  tsurl="https://luck.catli.net/v1/api/${name}/static/${filename}"
+  tsurl="${domain}/v1/api/${name}/static/${filename}"
   curl_code=$(curl -o new-${filename} --insecure -s -w %{http_code} $tsurl)
   if [ $curl_code != "200" ]; then
     echo "下载失败: $tsurl"
@@ -23,7 +26,7 @@ done
 mkdir -p txt
 for name in ${names[@]}; do
   filename="${name}.ts"
-  tsurl="https://luck.catli.net/v1/api/${name}/static/${filename}"
+  tsurl="${domain}/v1/api/${name}/static/${filename}"
   curl_code=$(curl -o txt/new-${name}.txt --insecure -s -w %{http_code} $tsurl)
   if [ $curl_code != "200" ]; then
     echo "下载失败: $tsurl"
@@ -47,7 +50,7 @@ done
 # 修改admin-custom.ts文件内的 RESTful 方法: list info add put del
 #逻辑：查找指定方法名，获取其位置行数，查找下一行 admin/:name/ 后面的名字name，更改方法名为：name方法名
 FILENAME="admin-custom.ts"
-FUNC_ARR=("list" "info" "add" "put" "del")
+FUNC_ARR=("list" "info" "add" "put" "del" "enumList")
 for FUNC_NAME in ${FUNC_ARR[@]}; do
   for line in $(grep -n "function ${FUNC_NAME}(" $FILENAME | cut -d ":" -f 1); do
     NEXT_LINE=$(($line + 1))

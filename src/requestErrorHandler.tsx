@@ -115,7 +115,7 @@ function RequestErrorHandler(error: any, opts: any): void {
     case "AbortError":
       message.error("请求被终止")
       break;
-    //发起请求后，产生的200错误
+    //发起请求后，http响应码为200，但success为false
     case "BizError":
       const details = error.info as unknown as ResponseErrorStruct
       if (typeof details.errorCode === 'undefined') {
