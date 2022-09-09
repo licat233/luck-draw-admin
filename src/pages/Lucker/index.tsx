@@ -7,12 +7,14 @@ import {
 } from '@ant-design/pro-components';
 import '@umijs/max';
 import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { luckerAdd as add, luckerDel as del, luckerDetails as list, luckerPut as put, projectEnumList } from '@/services/global-api/admin-custom';
-import { LuckerDetails, LuckerAddReq as AddReq, LuckerPutReq as PutReq, Lucker, LuckerDetailsReqParams, LuckerPutReq, LuckerAddReq, User, Prize, Activity, Project } from "@/services/global-api/adminComponents";
+import { activityPrizes, luckerDel as del, luckerDetails as list, luckerPut as put, prizeGradeEnumList, projectActivity, projectEnumList } from '@/services/global-api/admin-custom';
+import { LuckerDetails, LuckerPutReq as PutReq, Lucker, User, Prize, Activity, Project, LuckerDetailsReq as Params, ActivityPrize, Enum } from "@/services/global-api/adminComponents";
 import OperationModal from './components/OperationModal';
 import dayjs from 'dayjs';
+import { ReqStorage } from './data';
+import { ProFormInstance } from '@ant-design/pro-form';
 
 /**
  * @en-US Add node
@@ -20,20 +22,20 @@ import dayjs from 'dayjs';
  * @param record
  */
 
-const handleAdd = async (record: AddReq) => {
-  const hide = message.loading('正在添加');
+// const handleAdd = async (record: AddReq) => {
+//   const hide = message.loading('正在添加');
 
-  try {
-    await add(record);
-    hide();
-    message.success('添加成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('添加失败');
-    return false;
-  }
-};
+//   try {
+//     await add(record);
+//     hide();
+//     message.success('添加成功');
+//     return true;
+//   } catch (error) {
+//     hide();
+//     message.error('添加失败');
+//     return false;
+//   }
+// };
 
 /**
  * @en-US Update node
@@ -124,14 +126,98 @@ const LuckerList: React.FC = () => {
   const [currentDesc, setCurrentDesc] = useState<User | Prize | Activity | Project>();
   const [currentColumns, setCurrentColumns] = useState<ProColumns<LuckerDetails>[] | ProColumns<User>[] | ProColumns<Prize>[] | ProColumns<Activity>[] | ProColumns<Project>[]>();
 
+  const [prizeGradeEnum, setPrizeGradeEnum] = useState<Enum[]>()
+  const [projectEnum, setProjectEnum] = useState<Enum[]>()
+  const prizeGradeEnumListStatus = useRef<boolean>(false)
+  const projectEnumListStatus = useRef<boolean>(false)
+  useEffect(() => {
+    if (!prizeGradeEnum && !prizeGradeEnumListStatus.current) {
+      prizeGradeEnumListStatus.current = true
+      prizeGradeEnumList().then((result: Enum[]) => {
+        setPrizeGradeEnum(result)
+      })
+    }
+    if (!projectEnum && !projectEnumListStatus.current) {
+      projectEnumListStatus.current = true
+      projectEnumList().then((result: Enum[]) => {
+        setProjectEnum(result)
+      })
+    }
+  })
+
   /**
    * @en-US International configuration
    * @zh-CN 国际化配置
    * */
 
+  let activityOptionsMark = useRef(0);
+  let prizeOptionsMark = useRef(0);
+  const [activityOptions, setActivityOptions] = useState<Enum[]>()
+  const [prizeOptions, setPrizeOptions] = useState<Enum[]>()
+
+  const formRef = useRef<ProFormInstance>();
+
+  const httpStore = useRef<ReqStorage>({
+    activity: {},
+    prize: {},
+  })
+
+  const RequestActivityOptionsList = async (project_id: number | undefined): Promise<Enum[]> => {
+    if (typeof project_id === 'undefined') return [];
+    if (httpStore.current.activity[project_id]) return httpStore.current.activity[project_id]
+    try {
+      const res = await projectActivity({ project_id })
+      if (res.success && res.data) {
+        const list = (res.data as Activity[]).map<Enum>(item => {
+          return {
+            label: item.name,
+            value: item.id
+          }
+        })
+        httpStore.current.activity[project_id] = list
+        return list
+      }
+    } catch (error: any) {
+      message.error(error.message)
+    }
+    httpStore.current.activity[project_id] = []
+    return []
+  }
+
+  const RequestPrizeOptionsList = async (activity_id: number | undefined): Promise<Enum[]> => {
+    if (typeof activity_id === 'undefined') return [];
+    if (httpStore.current.prize[activity_id]) return httpStore.current.prize[activity_id]
+    try {
+      const res = await activityPrizes({ activity_id })
+      if (res.success && res.data) {
+        const totalLuckValue = (res.data as Array<ActivityPrize>).reduce((total, item: ActivityPrize) => {
+          return total + item.prizes_pool.luck_value
+        }, 0)
+        const list = (res.data as Array<ActivityPrize>).map<Enum>(item => {
+          return {
+            label: `${item.prize.name}【${item.prize_grade.name}】-概率${CalculatePercentage(totalLuckValue, item.prizes_pool.luck_value)}`,
+            value: item.prizes_pool.id
+          }
+        })
+        httpStore.current.prize[activity_id] = list
+        return list
+      }
+    } catch (error: any) {
+      message.error(error.message)
+    }
+    httpStore.current.prize[activity_id] = []
+    return []
+  }
+
+  const [activityIndex, setActivityIndex] = useState<"activity_name" | "activity_id">("activity_name")
+  const [activityType, setActivityType] = useState<"text" | "select">("text")
+
+  const [prizeIndex, setPrizeIndex] = useState<"prize_name" | "prize_id">("prize_name")
+  const [prizeType, setPrizeType] = useState<"text" | "select">("text")
+
   const columns: ProColumns<LuckerDetails>[] = [
     {
-      title: '用户',
+      title: '用户名',
       dataIndex: "user_name",
       key: "user_name",
       valueType: 'text',
@@ -151,10 +237,100 @@ const LuckerList: React.FC = () => {
       }
     },
     {
+      title: '项目',
+      dataIndex: "project_id",
+      key: "project_id",
+      valueType: 'select',
+      render: (_, record) => {
+        return (
+          <a
+            href="#!"
+            onClick={() => {
+              setCurrentDesc(record.project)
+              setCurrentColumns(projectColumns)
+              setShowDetail(true);
+            }}
+          >
+            {record.project.name}
+          </a>
+        );
+      },
+      fieldProps: {
+        options: projectEnum || [],
+        onChange: async (val: number|undefined) => {
+          if (Object.prototype.toString.call(val) !== '[object Number]') {
+            formRef.current?.setFieldValue("activity_id", undefined)
+            formRef.current?.setFieldValue("prize_id", undefined)
+            setActivityIndex("activity_name")
+            setActivityType("text")
+            setPrizeIndex("prize_name")
+            setPrizeType("text")
+            return
+          }
+          activityOptionsMark.current = new Date().valueOf()
+          const markNumber = activityOptionsMark.current
+          const res = await RequestActivityOptionsList(val)
+          if (markNumber === activityOptionsMark.current) { //表示是最新请求
+            setActivityOptions(res) //更新活动选项
+            setPrizeOptions(undefined) //重置产品选项
+            formRef.current?.setFieldValue("activity_id", undefined)
+            formRef.current?.setFieldValue("prize_id", undefined)
+            setActivityIndex("activity_id")
+            setActivityType("select")
+            setPrizeIndex("prize_name")
+            setPrizeType("text")
+            // console.log(formRef.current?.getFieldValue("activity_id"))
+          }
+        },
+      }
+    },
+    {
+      title: '活动',
+      dataIndex: activityIndex,
+      valueType:  activityType,
+      // request: activityEnumListRequest,
+      render: (_, record) => {
+        return (
+          <a
+            href="#!"
+            onClick={() => {
+              setCurrentDesc(record.activity)
+              setCurrentColumns(activityColumns)
+              setShowDetail(true);
+            }}
+          >
+            {record.activity.name}
+          </a>
+        );
+      },
+      fieldProps: {
+        options: activityOptions || [],
+        onChange: async (val: number|undefined) => {
+          if (Object.prototype.toString.call(val)!== '[object Number]') {
+            formRef.current?.setFieldValue("prize_id", undefined) //重置产品选项
+            setPrizeIndex("prize_name")
+            setPrizeType("text")
+            return
+          }
+          prizeOptionsMark.current = new Date().valueOf()
+          const markNumber = prizeOptionsMark.current
+          const res = await RequestPrizeOptionsList(val)
+          if (markNumber === prizeOptionsMark.current) { //表示是最新请求
+            setPrizeOptions(res) //更新产品选项
+            formRef.current?.setFieldValue("prize_id", undefined) //重置产品选项
+            setPrizeIndex("prize_id")
+            setPrizeType("select")
+          }
+        },
+      }
+    },
+    {
       title: '奖品',
-      dataIndex: "prize_name",
-      key: "prize_name",
-      valueType: 'text',
+      dataIndex: prizeIndex,
+      valueType:  prizeType,
+      fieldProps: {
+        options: prizeOptions || [],
+      },
       render: (_, record) => {
         return (
           <a
@@ -172,56 +348,18 @@ const LuckerList: React.FC = () => {
     },
     {
       title: '等级',
-      dataIndex: "prize_grade_name",
-      valueType: 'text',
-      hideInSearch: true,
+      dataIndex: "prize_grade_id",
+      valueType: 'select',
       render: (_, record) => {
         return record.prize_grade.name
-      }
-    },
-    {
-      title: '活动',
-      dataIndex: "activity_name",
-      key: "activity_name",
-      valueType: 'text',
-      render: (_, record) => {
-        return (
-          <a
-            href="#!"
-            onClick={() => {
-              setCurrentDesc(record.activity)
-              setCurrentColumns(activityColumns)
-              setShowDetail(true);
-            }}
-          >
-            {record.activity.name}
-          </a>
-        );
-      }
-    },
-    {
-      title: '项目',
-      dataIndex: "project_name",
-      key: "project_name",
-      valueType: 'text',
-      render: (_, record) => {
-        return (
-          <a
-            href="#!"
-            onClick={() => {
-              setCurrentDesc(record.project)
-              setCurrentColumns(projectColumns)
-              setShowDetail(true);
-            }}
-          >
-            {record.project.name}
-          </a>
-        );
+      },
+      fieldProps: {
+        options: prizeGradeEnum || [],
       }
     },
     {
       title: '状态',
-      dataIndex: 'lucker.status',
+      dataIndex: 'status',
       sorter: true,
       valueType: 'select',
       valueEnum: lucker_status_enum,
@@ -232,18 +370,18 @@ const LuckerList: React.FC = () => {
     {
       title: '抽奖时间',
       dataIndex: 'luck_date',
-      valueType: 'dateTime',
+      valueType: 'date',
       render: (_, record) => {
         return formatDate(record.lucker.luck_date);
       },
     },
     {
       title: 'IP',
-      dataIndex: "lucker_ip",
+      dataIndex: "ip",
       valueType: 'text',
-      hideInTable: true,
-      hideInSearch: true,
-      hideInForm: true,
+      render: (_, record) => {
+        return record.lucker.ip;
+      },
     },
     {
       title: '操作',
@@ -366,11 +504,11 @@ const LuckerList: React.FC = () => {
       valueType: 'select',
       valueEnum: {
         0: {
-          text: '禁用',
+          text: '无货',
           status: 'Default',
         },
         1: {
-          text: '启用',
+          text: '有货',
           status: 'Success',
         },
       },
@@ -563,14 +701,16 @@ const LuckerList: React.FC = () => {
     setCurrentDetails(undefined);
   };
 
-  const handleSubmit = async (record: AddReq & PutReq): Promise<boolean> => {
-    const method = record.id ? 'update' : 'add';
-    let ok = false
-    if (method === 'update') {
-      ok = await handleUpdate(record)
-    } if (method === 'add') {
-      ok = await handleAdd(record)
-    }
+  const handleSubmit = async (record: PutReq): Promise<boolean> => {
+    //只提供update
+    // const method = record.id ? 'update' : 'add';
+    // let ok = false
+    // if (method === 'update') {
+    //   ok = await handleUpdate(record)
+    // } if (method === 'add') {
+    //   ok = await handleAdd(record)
+    // }
+    const ok = await handleUpdate(record)
     setDone(ok);
     //刷新列表
     if (actionRef.current && ok) {
@@ -581,7 +721,7 @@ const LuckerList: React.FC = () => {
 
   return (
     <PageContainer>
-      <ProTable<LuckerDetails, LuckerDetailsReqParams>
+      <ProTable<LuckerDetails, Params>
         headerTitle={'奖品列表'}
         actionRef={actionRef}
         rowKey={(record) => {
@@ -604,6 +744,16 @@ const LuckerList: React.FC = () => {
         ]}
         request={list}
         columns={columns}
+        dateFormatter="number"
+        formRef={formRef}
+        onReset={() => {
+          setActivityOptions(undefined)
+          setPrizeOptions(undefined)
+          setActivityIndex("activity_name")
+          setActivityType("text")
+          setPrizeIndex("prize_name")
+          setPrizeType("text")
+        }}
       />
       <OperationModal
         done={done}
@@ -634,3 +784,8 @@ const LuckerList: React.FC = () => {
 //需要显示详情信息的字段：用户，奖品，活动，项目
 
 export default LuckerList;
+
+function CalculatePercentage(totalLuckValue: number, luck_value: number): string {
+  return (luck_value * 100 / totalLuckValue).toFixed(2) + "%"
+}
+

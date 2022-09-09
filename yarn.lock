@@ -5660,6 +5660,11 @@
   "resolved" "https://registry.npmmirror.com/decamelize/-/decamelize-1.2.0.tgz"
   "version" "1.2.0"
 
+"decimal@^0.0.2":
+  "integrity" "sha512-puX1+D5GlpXYH0kDejnu8F2jsGLKRePc7eOznNjqMbA2otl7AzvubrvvZVmOvRCHhsqeAPKNcAxHHbevsH/1qg=="
+  "resolved" "https://registry.npmmirror.com/decimal/-/decimal-0.0.2.tgz"
+  "version" "0.0.2"
+
 "decode-uri-component@^0.2.0":
   "integrity" "sha512-hjf+xovcEn31w/EUYdTXQh/8smFL/dzYjohQGEIgjyNavaJfBY2p5F527Bo1VPATxv0VYTUC2bOcXvqFwk78Og=="
   "resolved" "https://registry.npmmirror.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz"

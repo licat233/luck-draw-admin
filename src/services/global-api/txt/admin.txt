@@ -77,11 +77,11 @@ export function uploadImg() {
 }
 
 /**
- * @description "获取活动列表"
- * @param params
+ * @description "获取活动列表，因为设计数组传参，post方式会比较合适"
+ * @param req
  */
-export function list(params: components.ListReqParams) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/activity/list", params)
+export function list(req: components.ActivityListReq) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/activity/list", req)
 }
 
 /**
@@ -135,7 +135,7 @@ export function projectActivity(params: components.ProjectActivityReqParams) {
  * @description "获取管理员列表"
  * @param params
  */
-export function list(params: components.ListReqParams) {
+export function list(params: components.AdminerListReqParams) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/adminer/list", params)
 }
 
@@ -190,16 +190,16 @@ export function enumList() {
  * @description "获取抽奖单列表"
  * @param params
  */
-export function list(params: components.ListReqParams) {
+export function list(params: components.LuckerListReqParams) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/lucker/list", params)
 }
 
 /**
  * @description "获取抽奖单详细列表"
- * @param params
+ * @param req
  */
-export function luckerDetails(params: components.LuckerDetailsReqParams) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/lucker/details", params)
+export function luckerDetails(req: components.LuckerDetailsReq) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/lucker/details", req)
 }
 
 /**
@@ -227,6 +227,14 @@ export function put(req: components.LuckerPutReq) {
 }
 
 /**
+ * @description "编辑抽奖单by prize"
+ * @param req
+ */
+export function putByPrize(req: components.LuckerPutByPrizeReq) {
+	return webapi.put<components.BaseResp>("/v1/api/admin/lucker/putByPrize", req)
+}
+
+/**
  * @description "删除抽奖单"
  * @param req
  */
@@ -245,7 +253,7 @@ export function enumList() {
  * @description "获取奖品列表"
  * @param params
  */
-export function list(params: components.ListReqParams) {
+export function list(params: components.PrizeListReqParams) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/prize/list", params)
 }
 
@@ -395,7 +403,7 @@ export function searchPrizesPool(params: components.SearchPrizesPoolParams) {
  * @description "获取项目列表"
  * @param params
  */
-export function list(params: components.ListReqParams) {
+export function list(params: components.ProjectListReqParams) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/project/list", params)
 }
 
@@ -543,7 +551,7 @@ export function getPermissionsForUserInDomain(req: components.RoleAndDomainReq) 
  * @description "获取用户列表"
  * @param params
  */
-export function list(params: components.ListReqParams) {
+export function list(params: components.UserListReqParams) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/user/list", params)
 }
 

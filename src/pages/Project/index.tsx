@@ -10,7 +10,7 @@ import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { projectAdd as add, projectDel as del, projectList as list, projectPut as put} from '@/services/global-api/admin-custom';
-import { Project as Item, ProjectAddReq as AddReq, ProjectPutReq as PutReq, ListReqParams as Params} from "@/services/global-api/adminComponents";
+import { Project as Item, ProjectAddReq as AddReq, ProjectPutReq as PutReq, ProjectListReqParams as Params} from "@/services/global-api/adminComponents";
 import OperationModal from './components/OperationModal';
 
 /**
@@ -233,7 +233,7 @@ const ProjectList: React.FC = () => {
         headerTitle={'项目列表'}
         actionRef={actionRef}
         rowKey="id"
-        search={false}
+        // search={false}
         toolBarRender={() => [
           <Button
             type="primary"
@@ -245,11 +245,6 @@ const ProjectList: React.FC = () => {
             <PlusOutlined /> 新建
           </Button>,
         ]}
-        params={{
-          pageSize: 20,
-          current: 1,
-          keyword: "",
-        }}
         request={list}
         columns={columns}
       />

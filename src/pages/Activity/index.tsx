@@ -11,7 +11,7 @@ import React, { useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { activityAdd as add, activityDel as del, activityList as list, activityPut as put } from '@/services/global-api/admin-custom';
-import { Activity as Item, ActivityAddReq as AddReq, ActivityPutReq as PutReq, ListReqParams as Params } from "@/services/global-api/adminComponents";
+import { Activity as Item, ActivityAddReq as AddReq, ActivityPutReq as PutReq, ActivityListReq as Params } from "@/services/global-api/adminComponents";
 import OperationModal from './components/OperationModal';
 import { projectEnumList } from '@/services/global-api/admin-custom';
 
@@ -135,16 +135,13 @@ const ActivityList: React.FC = () => {
     {
       title: '所属项目',
       dataIndex: "project_id",
-      sorter: true,
       valueType: 'select',
       request: projectEnumList,
     },
     {
       title: '活动状态',
       dataIndex: 'status',
-      sorter: true,
-      hideInSearch: true,
-      valueType: 'text',
+      valueType: 'switch',
       valueEnum: {
         0: {
           text: '关闭',
@@ -159,8 +156,6 @@ const ActivityList: React.FC = () => {
     {
       title: '参与权限',
       dataIndex: 'pattern',
-      sorter: true,
-      hideInSearch: true,
       valueType: 'text',
       valueEnum: {
         0: {
@@ -176,8 +171,7 @@ const ActivityList: React.FC = () => {
     {
       title: '每人最大抽奖数',
       dataIndex: 'max_count',
-      sorter: true,
-      hideInSearch: true,
+      valueType: "digit",
       render: (_, record) => {
         if (record.max_count === -1) {
           return "无限制"
@@ -188,8 +182,7 @@ const ActivityList: React.FC = () => {
     {
       title: '每人最大获奖数',
       dataIndex: 'max_prizes',
-      sorter: true,
-      hideInSearch: true,
+      valueType: "digit",
       render: (_, record) => {
         if (record.max_prizes === -1) {
           return "无限制"
@@ -200,7 +193,7 @@ const ActivityList: React.FC = () => {
     {
       title: '活动时间',
       valueType: 'dateTimeRange',
-      dataIndex: 'start_time',
+      dataIndex: "range_time",
       render: (_, record) => {
         if (!record.start_time || !record.end_time) {
           return "数据异常"
@@ -301,7 +294,7 @@ const ActivityList: React.FC = () => {
         headerTitle={'项目列表'}
         actionRef={actionRef}
         rowKey="id"
-        search={false}
+        // search={false}
         toolBarRender={() => [
           <Button
             type="primary"
@@ -313,11 +306,6 @@ const ActivityList: React.FC = () => {
             <PlusOutlined /> 新建
           </Button>,
         ]}
-        params={{
-          pageSize: 20,
-          current: 1,
-          keyword: "",
-        }}
         request={list}
         columns={columns}
       />

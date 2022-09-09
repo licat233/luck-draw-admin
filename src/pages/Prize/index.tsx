@@ -10,7 +10,7 @@ import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { prizeAdd as add, prizeDel as del, prizeList as list, prizePut as put } from '@/services/global-api/admin-custom';
-import { Prize as Item, PrizeAddReq as AddReq, PrizePutReq as PutReq, ListReqParams as Params } from "@/services/global-api/adminComponents";
+import { Prize as Item, PrizeAddReq as AddReq, PrizePutReq as PutReq, PrizeListReqParams as Params } from "@/services/global-api/adminComponents";
 import OperationModal from './components/OperationModal';
 
 /**
@@ -129,6 +129,7 @@ const PrizeList: React.FC = () => {
       title: '图片',
       dataIndex: "image",
       valueType: 'image',
+      hideInSearch: true,
     },
     {
       title: '价格',
@@ -138,16 +139,14 @@ const PrizeList: React.FC = () => {
     {
       title: '状态',
       dataIndex: 'status',
-      sorter: true,
-      hideInSearch: true,
       valueType: 'text',
       valueEnum: {
         0: {
-          text: '关闭',
+          text: '无货',
           status: 'Default',
         },
         1: {
-          text: '开启',
+          text: '有货',
           status: 'Success',
         },
       },
@@ -245,7 +244,7 @@ const PrizeList: React.FC = () => {
         headerTitle={'奖品列表'}
         actionRef={actionRef}
         rowKey="id"
-        search={false}
+        // search={false}
         toolBarRender={() => [
           <Button
             type="primary"
@@ -257,11 +256,6 @@ const PrizeList: React.FC = () => {
             <PlusOutlined /> 新建
           </Button>,
         ]}
-        params={{
-          pageSize: 20,
-          current: 1,
-          keyword: "",
-        }}
         request={list}
         columns={columns}
       />

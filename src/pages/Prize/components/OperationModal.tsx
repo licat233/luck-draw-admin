@@ -155,7 +155,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           },
         ]}
         placeholder="请选择奖品状态"
-        options={[{ label: "关闭", value: 0 }, { label: "开启", value: 1 }]}
+        options={[{ label: "无货", value: 0 }, { label: "有货", value: 1 }]}
         width="md"
         name="status"
         label='奖品状态'

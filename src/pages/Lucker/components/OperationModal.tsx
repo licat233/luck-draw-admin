@@ -4,14 +4,15 @@ import {
   ProFormSelect,
   ProFormDateTimePicker,
   ProFormInstance,
+  ProFormText,
+  ProFormDigit,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
-import { Activity, activityPrizes, Lucker, LuckerAddReq, LuckerDetails, LuckerPutReq, Prize, projectActivity, projectEnumList } from '@/services/global-api/admin-custom';
+import { Activity, ActivityPrize, activityPrizes, LuckerDetails, LuckerPutReq, projectActivity, projectEnumList } from '@/services/global-api/admin-custom';
 import { message } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
 import { luckerFormData, ReqStorage } from '../data';
 import dayjs from 'dayjs';
-
 
 type OperationModalProps = {
   done: boolean;
@@ -19,7 +20,7 @@ type OperationModalProps = {
   // current: Partial<Lucker> | undefined;
   details: Partial<LuckerDetails> | undefined;
   onDone: () => void;
-  onSubmit: (values: LuckerPutReq & LuckerAddReq) => Promise<boolean>;
+  onSubmit: (values: LuckerPutReq) => Promise<boolean>;
 };
 
 
@@ -45,14 +46,22 @@ const OperationModal: FC<OperationModalProps> = (props) => {
 
   const formRef = useRef<ProFormInstance>();
 
+  const initActivityOptionsState = useRef<boolean>(false)
   const initActivityOptions = async () => {
+    if (initActivityOptionsState.current) return
+    initActivityOptionsState.current = true
     const res = await RequestActivityOptionsList(projectId)
     setActivityOptions(res)
+    initActivityOptionsState.current = false
   }
 
+  const initPrizeOptionsState = useRef<boolean>(false)
   const initPrizeOptions = async () => {
+    if (initPrizeOptionsState.current) return
+    initPrizeOptionsState.current = true
     const res = await RequestPrizeOptionsList(activityId)
     setPrizeOptions(res)
+    initPrizeOptionsState.current = false
   }
 
   useEffect(() => {
@@ -97,16 +106,21 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     return []
   }
 
+  const CalculatePercentage = (total: number, num: number): string => (num * 100 / total).toFixed(2) + "%"
+
   const RequestPrizeOptionsList = async (activity_id: number | undefined): Promise<DefaultOptionType[]> => {
     if (typeof activity_id === 'undefined') return [];
     if (httpStore.current.prize[activity_id]) return httpStore.current.prize[activity_id]
     try {
       const res = await activityPrizes({ activity_id })
       if (res.success && res.data) {
-        const list = (res.data as Prize[]).map<DefaultOptionType>(item => {
+        const totalLuckValue = (res.data as Array<ActivityPrize>).reduce((total, item: ActivityPrize) => {
+          return total + item.prizes_pool.luck_value
+        }, 0)
+        const list = (res.data as Array<ActivityPrize>).map<DefaultOptionType>(item => {
           return {
-            label: item.name,
-            value: item.id
+            label: `${item.prize.name}【${item.prize_grade.name}】-概率${CalculatePercentage(totalLuckValue, item.prizes_pool.luck_value)}`,
+            value: item.prizes_pool.id
           }
         })
         httpStore.current.prize[activity_id] = list
@@ -132,14 +146,23 @@ const OperationModal: FC<OperationModalProps> = (props) => {
   }
 
   return (
-    <ModalForm<LuckerAddReq & LuckerPutReq>
+    <ModalForm<LuckerPutReq>
       visible={visible}
       title={done ? null : `抽奖单${details?.lucker ? '编辑' : '添加'}`}
       className={styles.standardListForm}
       width={375}
       onFinish={async (values) => {
         values.luck_date = dayjs(values.luck_date).unix()
-        const ok = await onSubmit({ ...details?.lucker, ...values });
+        const params: LuckerPutReq = {
+          id: values.id,
+          uuid: values.uuid,
+          user_id: values.user_id,
+          prizes_pool_id: values.prizes_pool_id,
+          status: values.status,
+          luck_date: values.luck_date,
+          ip: values.ip || "",
+        }
+        const ok = await onSubmit(params);
         ok && onDone();
       }}
       initialValues={currentFormData}
@@ -154,6 +177,14 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       }}
       formRef={formRef}
     >
+      <ProFormDigit
+        name="id"
+        hidden={true}
+      />
+      <ProFormText
+        name="uuid"
+        hidden={true}
+      />
       <ProFormSelect
         rules={[
           {
@@ -230,7 +261,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           },
         ]}
         width="md"
-        name="prize_id"
+        name="prizes_pool_id"
         label='中奖产品'
         options={prizeOptions || []}
       />
@@ -246,6 +277,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         name="status"
         label='抽奖单状态'
       />
+
       <ProFormDateTimePicker
         rules={[
           {
@@ -256,6 +288,17 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         width="md"
         name="luck_date"
         label="抽奖时间"
+      />
+      <ProFormText
+        rules={[
+          {
+            pattern: /((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}/,
+            message: 'ip格式有误',
+          },
+        ]}
+        name="ip"
+        width="md"
+        label="IP地址"
       />
     </ModalForm>
   );

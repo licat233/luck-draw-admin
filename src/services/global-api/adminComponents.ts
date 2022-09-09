@@ -169,6 +169,22 @@ export interface ProjectActivityReqParams {
 	project_id: number // 所属项目id，-1表示无限制
 }
 
+export interface ActivityListReq {
+	pageSize?: number // 页面大小
+	current?: number // 当前页码
+	keyword?: string // 关键词，可选
+	//字段搜索
+	name?: string // 活动名称
+	project_id?: number // 项目id
+	status?: number // 活动状态，是否在举办，默认关闭，需手动开启
+	pattern?: number // 方案: 0私密的，1公开的
+	max_count?: number // 单人最大抽奖次数：-1表示无限制，0表示不可抽奖
+	max_prizes?: number // 单人最大获奖数：-1表示无限制，0表示不可抽奖
+	start_time?: number // 活动开始时间
+	end_time?: number // 活动结束时间
+	range_time?: Array<string> // 活动结束时间
+}
+
 export interface Adminer {
 	id: number // 表主键
 	uuid: string // 唯一识别码
@@ -230,12 +246,30 @@ export interface AdminerModifyReq {
 	email: string // 邮箱
 }
 
+export interface AdminerListReq {
+}
+
+export interface AdminerListReqParams {
+	pageSize: number // 页面大小
+	current: number // 当前页码
+	keyword: string // 关键词，可选
+	//字段搜索
+	name: string // 管理员名称
+	passport: string // 账号
+	password: string // 密码
+	email: string // 邮箱
+	status: number // 账号状态，是否可用
+	is_super_admin: number // 是否为超级管理员
+	login_count: number // 登录次数
+	last_login: number // 最后一次登录时间
+}
+
 export interface Lucker {
 	id: number // 表主键
 	uuid: string // 唯一识别码
 	user_id: number // 中奖用户id
 	prizes_pool_id: number // 抽中的奖品池id
-	status: number // 状态: -1放弃领奖，0未领奖，1已领奖
+	status: number // 状态: 0未领奖，1已领奖，2放弃领奖
 	luck_date: number // 抽奖时间
 	ip: string // ip地址
 	create_at: number // 创建时间
@@ -254,8 +288,20 @@ export interface LuckerGetReqParams {
 export interface LuckerAddReq {
 	user_id: number // 中奖用户id
 	prizes_pool_id: number // 抽中的奖品池id
-	status: number // 状态: -1放弃领奖，0未领奖，1已领奖
+	status: number // 状态: 0未领奖，1已领奖，2放弃领奖
 	luck_date: number // 抽奖时间
+	ip?: string // IP地址
+}
+
+export interface LuckerPutByPrizeReq {
+	id: number // 表主键
+	uuid: string // 唯一识别码
+	user_id: number // 中奖用户id
+	prize_id: number // 奖品id
+	activity_id: number // 活动id
+	status: number // 状态: 0未领奖，1已领奖，2放弃领奖
+	luck_date: number // 抽奖时间
+	ip?: string // IP地址
 }
 
 export interface LuckerPutReq {
@@ -263,22 +309,13 @@ export interface LuckerPutReq {
 	uuid: string // 唯一识别码
 	user_id: number // 中奖用户id
 	prizes_pool_id: number // 抽中的奖品池id
-	status: number // 状态: -1放弃领奖，0未领奖，1已领奖
+	status: number // 状态: 0未领奖，1已领奖，2放弃领奖
 	luck_date: number // 抽奖时间
+	ip?: string // IP地址
 }
 
 export interface LuckerDelReq {
 	id: number
-}
-
-export interface LuckerDetailsReq {
-}
-
-export interface LuckerDetailsReqParams {
-	user_id: number // 用户id， -1表示不用 UserId 查询
-	activity_id: number // 活动id, -1表示不用 activityId 查询
-	pageSize: number // 页面大小
-	current: number // 当前页码
 }
 
 export interface LuckerDetails {
@@ -289,6 +326,40 @@ export interface LuckerDetails {
 	prize_grade: PrizeGrade // 奖品级别，中奖级别
 	activity: Activity // 活动信息，中奖活动，
 	project: Project // 项目信息，中奖项目，
+}
+
+export interface LuckerDetailsReq {
+	pageSize?: number // 页面大小
+	current?: number // 当前页码
+	keyword?: string // 关键词，可选
+	//字段搜索
+	user_id?: number // 用户id
+	user_name?: string // 用户名
+	project_id?: number // 项目id
+	activity_id?: number // 活动id
+	activity_name?: string // 活动id
+	prizes_pool_id?: number // 奖品池id
+	prize_id?: number // 奖品id
+	prize_name?: string // 奖品名
+	prize_grade_id?: number // 奖品等级id
+	status?: number // 状态
+	luck_date?: number // 抽奖时间
+	ip?: string // IP地址
+}
+
+export interface LuckerListReq {
+}
+
+export interface LuckerListReqParams {
+	pageSize: number // 页面大小
+	current: number // 当前页码
+	keyword: string // 关键词，可选
+	//字段搜索
+	user_id: number // 中奖用户id
+	prizes_pool_id: number // 抽中的奖品池id
+	status: number // 状态: 0未领奖，1已领奖，2放弃领奖
+	luck_date: number // 抽奖时间
+	ip: string // ip地址
 }
 
 export interface Prize {
@@ -331,11 +402,34 @@ export interface PrizeDelReq {
 	id: number
 }
 
+export interface ActivityPrize {
+	prize: Prize // 奖品信息
+	prizes_pool: PrizesPool // 奖品池信息
+	prize_grade: PrizeGrade // 奖品池信息
+}
+
+export interface ActivityPrizeListData {
+	activity_prize_list: Array<ActivityPrize> // 活动奖品列表
+}
+
 export interface ActivityPrizesReq {
 }
 
 export interface ActivityPrizesReqParams {
 	activity_id: number // 所属活动id，-1表示无限制
+}
+
+export interface PrizeListReq {
+}
+
+export interface PrizeListReqParams {
+	pageSize: number // 页面大小
+	current: number // 当前页码
+	keyword: string // 关键词，可选
+	//字段搜索
+	name: string // 奖品名称
+	price: number // 奖品价格
+	status: number // 是否可用
 }
 
 export interface PrizeGrade {
@@ -460,6 +554,18 @@ export interface ProjectDelReq {
 	id: number
 }
 
+export interface ProjectListReq {
+}
+
+export interface ProjectListReqParams {
+	pageSize: number // 页面大小
+	current: number // 当前页码
+	keyword: string // 关键词，可选
+	//字段搜索
+	name: string // 项目名称
+	status: number // 项目状态
+}
+
 export interface PolicyReq {
 	sub: string
 	dom: string
@@ -489,7 +595,7 @@ export interface User {
 	name: string // 用户名
 	address: string // 收货地址
 	score: number // 积分
-	status: number // 状态:-1已经封禁，0未授权，1已授权
+	status: number // 状态:0未授权，1正常，2已冻结
 	create_at: number // 创建时间
 	update_at: number // 更新时间
 	is_deleted: number // 是否已被删除
@@ -510,7 +616,7 @@ export interface UserAddReq {
 	name: string // 用户名
 	address: string // 收货地址
 	score: number // 积分
-	status: number // 状态:-1已经封禁，0未授权，1已授权
+	status: number // 状态:0未授权，1正常，2已冻结
 }
 
 export interface UserPutReq {
@@ -522,11 +628,28 @@ export interface UserPutReq {
 	name: string // 用户名
 	address: string // 收货地址
 	score: number // 积分
-	status: number // 状态:-1已经封禁，0未授权，1已授权
+	status: number // 状态:0未授权，1正常，2已冻结
 }
 
 export interface UserDelReq {
 	id: number
+}
+
+export interface UserListReq {
+}
+
+export interface UserListReqParams {
+	pageSize: number // 页面大小
+	current: number // 当前页码
+	keyword: string // 关键词，可选
+	//字段搜索
+	passport: string // 凭证，可以是手机号或者社交账号，一般是由客户填入
+	email: string // 邮箱
+	phone: string // 手机号
+	name: string // 用户名
+	address: string // 收货地址
+	score: number // 积分
+	status: number // 状态:0未授权，1正常，2已冻结
 }
 
 export interface UsersPool {
@@ -534,7 +657,7 @@ export interface UsersPool {
 	uuid: string // 唯一识别码
 	activity_id: number // 活动id
 	user_id: number // 奖品id
-	status: number // 状态：-1已被禁止,0未授权，1已授权
+	status: number // 状态:0未授权，1正常，2已冻结
 	score: number // 用户在当前活动的积分
 	create_at: number // 创建时间
 	update_at: number // 更新时间
@@ -552,7 +675,7 @@ export interface UsersPoolGetReqParams {
 export interface UsersPoolAddReq {
 	activity_id: number // 活动id
 	user_id: number // 奖品id
-	status: number // 状态：-1已被禁止,0未授权，1已授权
+	status: number // 状态:0未授权，1正常，2已冻结
 	score: number // 用户在当前活动的积分
 }
 
@@ -561,7 +684,7 @@ export interface UsersPoolPutReq {
 	uuid: string // 唯一识别码
 	activity_id: number // 活动id
 	user_id: number // 奖品id
-	status: number // 状态：-1已被禁止,0未授权，1已授权
+	status: number // 状态:0未授权，1正常，2已冻结
 	score: number // 用户在当前活动的积分
 }
 

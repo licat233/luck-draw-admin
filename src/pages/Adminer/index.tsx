@@ -11,7 +11,7 @@ import React, { useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { adminerAdd as add , adminerDel as del, adminerList as list, adminerPut as put} from '@/services/global-api/admin-custom';
-import { Adminer as Item, AdminerAddReq as AddReq, AdminerPutReq as PutReq, ListReqParams as Params} from "@/services/global-api/adminComponents";
+import { Adminer as Item, AdminerAddReq as AddReq, AdminerPutReq as PutReq, AdminerListReqParams as Params} from "@/services/global-api/adminComponents";
 import OperationModal from './components/OperationModal';
 
 /**
@@ -299,7 +299,10 @@ const AdminerList: React.FC = () => {
         headerTitle={'管理员列表'}
         actionRef={actionRef}
         rowKey="id"
-        search={false}
+        // search={false}
+        // options={{
+        //   search: true,
+        // }}
         toolBarRender={() => [
           <Button
             type="primary"
@@ -311,13 +314,9 @@ const AdminerList: React.FC = () => {
             <PlusOutlined /> 新建
           </Button>,
         ]}
-        params={{
-          pageSize: 20,
-          current: 1,
-          keyword: "",
-        }}
         request={list}
         columns={columns}
+        dateFormatter="number"
       />
       <OperationModal
         done={done}

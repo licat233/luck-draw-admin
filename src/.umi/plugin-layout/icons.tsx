@@ -4,8 +4,9 @@
 import SmileOutlined from '/Users/licat/Desktop/project/luck_draw-admin/node_modules/@ant-design/icons/es/icons/SmileOutlined';
 import CrownOutlined from '/Users/licat/Desktop/project/luck_draw-admin/node_modules/@ant-design/icons/es/icons/CrownOutlined';
 import IdcardOutlined from '/Users/licat/Desktop/project/luck_draw-admin/node_modules/@ant-design/icons/es/icons/IdcardOutlined';
+import UserOutlined from '/Users/licat/Desktop/project/luck_draw-admin/node_modules/@ant-design/icons/es/icons/UserOutlined';
 import ProjectOutlined from '/Users/licat/Desktop/project/luck_draw-admin/node_modules/@ant-design/icons/es/icons/ProjectOutlined';
 import FlagOutlined from '/Users/licat/Desktop/project/luck_draw-admin/node_modules/@ant-design/icons/es/icons/FlagOutlined';
 import GiftOutlined from '/Users/licat/Desktop/project/luck_draw-admin/node_modules/@ant-design/icons/es/icons/GiftOutlined';
 import ContainerOutlined from '/Users/licat/Desktop/project/luck_draw-admin/node_modules/@ant-design/icons/es/icons/ContainerOutlined';
-export default { SmileOutlined, CrownOutlined, IdcardOutlined, ProjectOutlined, FlagOutlined, GiftOutlined, ContainerOutlined };
+export default { SmileOutlined, CrownOutlined, IdcardOutlined, UserOutlined, ProjectOutlined, FlagOutlined, GiftOutlined, ContainerOutlined };

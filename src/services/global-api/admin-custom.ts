@@ -78,11 +78,11 @@ export function uploadImg(options?: { [key: string]: any }) {
 }
 
 /**
- * @description "获取活动列表"
- * @param params
+ * @description "获取活动列表，因为设计数组传参，post方式会比较合适"
+ * @param req
  */
-export function activityList(params: components.ListReqParams, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/activity/list", params, options)
+export function activityList(req: components.ActivityListReq, options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/activity/list", req, options)
 }
 
 /**
@@ -136,7 +136,7 @@ export function projectActivity(params: components.ProjectActivityReqParams, opt
  * @description "获取管理员列表"
  * @param params
  */
-export function adminerList(params: components.ListReqParams, options?: { [key: string]: any }) {
+export function adminerList(params: components.AdminerListReqParams, options?: { [key: string]: any }) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/adminer/list", params, options)
 }
 
@@ -191,16 +191,16 @@ export function adminerEnumList(options?: { [key: string]: any }) {
  * @description "获取抽奖单列表"
  * @param params
  */
-export function luckerList(params: components.ListReqParams, options?: { [key: string]: any }) {
+export function luckerList(params: components.LuckerListReqParams, options?: { [key: string]: any }) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/lucker/list", params, options)
 }
 
 /**
  * @description "获取抽奖单详细列表"
- * @param params
+ * @param req
  */
-export function luckerDetails(params: components.LuckerDetailsReqParams, options?: { [key: string]: any }) {
-	return webapi.get<components.BaseResp>("/v1/api/admin/lucker/details", params, options)
+export function luckerDetails(req: components.LuckerDetailsReq, options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/lucker/details", req, options)
 }
 
 /**
@@ -228,6 +228,14 @@ export function luckerPut(req: components.LuckerPutReq, options?: { [key: string
 }
 
 /**
+ * @description "编辑抽奖单by prize"
+ * @param req
+ */
+export function putByPrize(req: components.LuckerPutByPrizeReq, options?: { [key: string]: any }) {
+	return webapi.put<components.BaseResp>("/v1/api/admin/lucker/putByPrize", req, options)
+}
+
+/**
  * @description "删除抽奖单"
  * @param req
  */
@@ -246,7 +254,7 @@ export function luckerEnumList(options?: { [key: string]: any }) {
  * @description "获取奖品列表"
  * @param params
  */
-export function prizeList(params: components.ListReqParams, options?: { [key: string]: any }) {
+export function prizeList(params: components.PrizeListReqParams, options?: { [key: string]: any }) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/prize/list", params, options)
 }
 
@@ -396,7 +404,7 @@ export function searchPrizesPool(params: components.SearchPrizesPoolParams, opti
  * @description "获取项目列表"
  * @param params
  */
-export function projectList(params: components.ListReqParams, options?: { [key: string]: any }) {
+export function projectList(params: components.ProjectListReqParams, options?: { [key: string]: any }) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/project/list", params, options)
 }
 
@@ -544,7 +552,7 @@ export function getPermissionsForUserInDomain(req: components.RoleAndDomainReq, 
  * @description "获取用户列表"
  * @param params
  */
-export function userList(params: components.ListReqParams, options?: { [key: string]: any }) {
+export function userList(params: components.UserListReqParams, options?: { [key: string]: any }) {
 	return webapi.get<components.BaseResp>("/v1/api/admin/user/list", params, options)
 }
 
