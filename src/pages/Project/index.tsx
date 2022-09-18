@@ -216,7 +216,7 @@ const ProjectList: React.FC = () => {
     let ok = false
     if (method === 'update') {
       ok = await handleUpdate(record)
-    } if (method === 'add') {
+    } else if (method === 'add') {
       ok = await handleAdd(record)
     }
     setDone(ok);
@@ -233,7 +233,7 @@ const ProjectList: React.FC = () => {
         headerTitle={'项目列表'}
         actionRef={actionRef}
         rowKey="id"
-        // search={false}
+        search={{}}
         toolBarRender={() => [
           <Button
             type="primary"
@@ -273,7 +273,7 @@ const ProjectList: React.FC = () => {
               data: current || {},
             })}
             params={{
-              id: current?.name,
+              id: current?.id,
             }}
             columns={columns as ProDescriptionsItemProps<Item>[]}
           />

@@ -22,6 +22,7 @@ export default [
   { name: "项目", icon: 'project', path: '/project', component: './Project' },
   { name: "活动", icon: 'flag', path: '/activity', component: './Activity' },
   { name: "奖品", icon: 'gift', path: '/prize', component: './Prize' },
+  // { name: "奖品池", icon: 'shop', path: '/prizes_pool', component: './PrizesPool' },
   { name: "抽奖记录", icon: 'container', path: '/lucker', component: './Lucker' },
   { path: '/', redirect: '/welcome' },
   { path: '*', component: './404' },

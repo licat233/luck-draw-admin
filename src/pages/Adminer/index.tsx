@@ -282,7 +282,7 @@ const AdminerList: React.FC = () => {
     let ok = false
     if (method === 'update') {
       ok = await handleUpdate(record)
-    } if (method === 'add') {
+    } else if (method === 'add') {
       ok = await handleAdd(record)
     }
     setDone(ok);
@@ -343,7 +343,7 @@ const AdminerList: React.FC = () => {
               data: current || {},
             })}
             params={{
-              id: current?.name,
+              id: current?.id,
             }}
             columns={columns as ProDescriptionsItemProps<Item>[]}
           />

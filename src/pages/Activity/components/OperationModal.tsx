@@ -7,7 +7,7 @@ import {
   ProFormDigit,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
-import { Activity as BasicListItemDataType, projectEnumList } from '@/services/global-api/admin-custom';
+import { Activity as BasicListItemDataType, activityPatternEnumList, projectEnumList } from '@/services/global-api/admin-custom';
 import dayjs from 'dayjs';
 
 type OperationModalProps = {
@@ -87,7 +87,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
           },
         ]}
         placeholder="请选择活动状态"
-        options={[{ label: "关闭", value: 0 }, { label: "开启", value: 1 }]}
+        options={[{ label: "开启", value: 1 }, { label: "关闭", value: 0 }]}
         width="md"
         name="status"
         label='活动状态'
@@ -99,11 +99,11 @@ const OperationModal: FC<OperationModalProps> = (props) => {
             message: '必填项',
           },
         ]}
-        placeholder="请选择活动参与权限"
-        options={[{ label: "仅客户", value: 0 }, { label: "所有人", value: 1 }]}
+        // options={[{ label: "仅客户", value: 0 }, { label: "所有人", value: 1 }]}
+        request={activityPatternEnumList}
         width="md"
         name="pattern"
-        label='参与权限'
+        label='模式'
       />
       <ProFormDigit
         rules={[

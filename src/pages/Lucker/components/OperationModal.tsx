@@ -36,8 +36,8 @@ const OperationModal: FC<OperationModalProps> = (props) => {
    */
 
 
-  let activityOptionsMark = useRef(0);
-  let prizeOptionsMark = useRef(0);
+  const activityOptionsMark = useRef(0);
+  const prizeOptionsMark = useRef(0);
   const [projectId, setProjectId] = useState<number | undefined>(details?.project?.id)
   const [activityId, setActivityId] = useState<number | undefined>(details?.activity?.id)
 
@@ -102,7 +102,6 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     } catch (error: any) {
       message.error(error.message)
     }
-    httpStore.current.activity[project_id] = []
     return []
   }
 
@@ -176,6 +175,9 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         bodyStyle: done ? { padding: '72px 0' } : {},
       }}
       formRef={formRef}
+      // onValuesChange={(values, putReq)=>{
+      //   console.log(values) //适用于实时编辑更新
+      // }}
     >
       <ProFormDigit
         name="id"
@@ -225,7 +227,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
               setActivityId(undefined) //重置活动id
               setPrizeOptions(undefined) //重置产品选项
               formRef.current?.setFieldValue("activity_id", undefined)
-              formRef.current?.setFieldValue("prize_id", undefined)
+              formRef.current?.setFieldValue("prizes_pool_id", undefined)
             }
           },
         }}
@@ -248,7 +250,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
             const res = await RequestPrizeOptionsList(val)
             if (markNumber === prizeOptionsMark.current) { //表示是最新请求
               setPrizeOptions(res) //更新产品选项
-              formRef.current?.setFieldValue("prize_id", undefined)
+              formRef.current?.setFieldValue("prizes_pool_id", undefined)
             }
           },
         }}

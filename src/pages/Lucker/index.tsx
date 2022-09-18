@@ -9,8 +9,8 @@ import '@umijs/max';
 import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { activityPrizes, luckerDel as del, luckerDetails as list, luckerPut as put, prizeGradeEnumList, projectActivity, projectEnumList } from '@/services/global-api/admin-custom';
-import { LuckerDetails, LuckerPutReq as PutReq, Lucker, User, Prize, Activity, Project, LuckerDetailsReq as Params, ActivityPrize, Enum } from "@/services/global-api/adminComponents";
+import { activityPrizes, luckerDel as del,luckerAdd as add, luckerDetails as list, luckerPut as put, prizeGradeEnumList, projectActivity, projectEnumList } from '@/services/global-api/admin-custom';
+import { LuckerDetails, LuckerPutReq as PutReq, LuckerAddReq as AddReq, Lucker, User, Prize, Activity, Project, LuckerDetailsReq as Params, ActivityPrize, Enum } from "@/services/global-api/adminComponents";
 import OperationModal from './components/OperationModal';
 import dayjs from 'dayjs';
 import { ReqStorage } from './data';
@@ -22,20 +22,20 @@ import { ProFormInstance } from '@ant-design/pro-form';
  * @param record
  */
 
-// const handleAdd = async (record: AddReq) => {
-//   const hide = message.loading('正在添加');
+const handleAdd = async (record: AddReq) => {
+  const hide = message.loading('正在添加');
 
-//   try {
-//     await add(record);
-//     hide();
-//     message.success('添加成功');
-//     return true;
-//   } catch (error) {
-//     hide();
-//     message.error('添加失败');
-//     return false;
-//   }
-// };
+  try {
+    await add(record);
+    hide();
+    message.success('添加成功');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('添加失败');
+    return false;
+  }
+};
 
 /**
  * @en-US Update node
@@ -282,7 +282,7 @@ const LuckerList: React.FC = () => {
             // console.log(formRef.current?.getFieldValue("activity_id"))
           }
         },
-      }
+      },
     },
     {
       title: '活动',
@@ -702,15 +702,13 @@ const LuckerList: React.FC = () => {
   };
 
   const handleSubmit = async (record: PutReq): Promise<boolean> => {
-    //只提供update
-    // const method = record.id ? 'update' : 'add';
-    // let ok = false
-    // if (method === 'update') {
-    //   ok = await handleUpdate(record)
-    // } if (method === 'add') {
-    //   ok = await handleAdd(record)
-    // }
-    const ok = await handleUpdate(record)
+    const method = record.id ? 'update' : 'add';
+    let ok = false
+    if (method === 'update') {
+      ok = await handleUpdate(record)
+    } else if (method === 'add') {
+      ok = await handleAdd(record)
+    }
     setDone(ok);
     //刷新列表
     if (actionRef.current && ok) {

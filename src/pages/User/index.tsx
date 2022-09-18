@@ -9,9 +9,11 @@ import '@umijs/max';
 import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { userAdd as add, userDel as del, userList as list, userPut as put } from '@/services/global-api/admin-custom';
-import { User as Item, UserAddReq as AddReq, UserPutReq as PutReq, UserListReqParams as Params } from "@/services/global-api/adminComponents";
+import { userAdd as add, userDel as del, userDetails, userPut as put, usersPoolAdd, usersPoolDel, usersPoolPut } from '@/services/global-api/admin-custom';
+import { User as Item, UserAddReq as AddReq, UserPutReq as PutReq, UserListReqParams as Params, UserDetail, BaseResp, User, UserActivity, UsersPoolPutReq, UsersPoolAddReq, UsersPoolDelReq, UsersPool } from "@/services/global-api/adminComponents";
 import OperationModal from './components/OperationModal';
+import { ActivityDetailInfo } from './data';
+import UsersPoolModal from './components/UsersPoolModal';
 
 /**
  * @en-US Add node
@@ -247,7 +249,7 @@ const UserList: React.FC = () => {
     let ok = false
     if (method === 'update') {
       ok = await handleUpdate(record)
-    } if (method === 'add') {
+    } else if (method === 'add') {
       ok = await handleAdd(record)
     }
     setDone(ok);
@@ -256,6 +258,168 @@ const UserList: React.FC = () => {
       actionRef.current.reload();
     }
     return ok
+  };
+
+  //数据缓存
+  const usersPoolCache = useRef<Map<number, UserDetail>>(new Map())
+  const list = async (req: Params): Promise<BaseResp> => {
+    const respData = await userDetails(req)
+    const list = respData.data ? respData.data as UserDetail[] : [];
+    const res = list.map<User>(item => {
+      usersPoolCache.current.set(item.user.id, item);
+      return item.user
+    })
+    respData.data = res
+    return respData
+  }
+
+  //children render
+  const handleUpdateUsersPool = async (req: UsersPoolPutReq) => {
+    const hide = message.loading('更新中...');
+    try {
+      await usersPoolPut(req);
+      hide();
+      message.success('更新成功');
+      return true;
+    } catch (error) {
+      hide();
+      message.error('更新失败');
+      return false;
+    }
+  }
+
+  const handleAddUsersPool = async (req: UsersPoolAddReq) => {
+    const hide = message.loading('正在添加');
+    try {
+      await usersPoolAdd(req);
+      hide();
+      message.success('添加成功');
+      return true;
+    } catch (error) {
+      hide();
+      message.error('添加失败');
+      return false;
+    }
+  }
+
+  const handleDelUsersPool = async (req: UsersPoolDelReq) => {
+    const del = async () => {
+      const hide = message.loading('正在删除');
+      try {
+        await usersPoolDel(req);
+        hide();
+        message.success('删除成功');
+        //刷新列表
+        actionRef.current?.reload();
+        return true;
+      } catch (error) {
+        hide();
+        message.error('删除失败');
+        return false;
+      }
+    }
+    Modal.confirm({
+      title: '删除警告',
+      content: '确定删除该用户参与的活动吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => del(),
+    });
+  }
+
+  const [usersPoolModelVisible, setUsersPoolModelVisible] = useState<boolean>(false);
+  const [usersPoolModelCurrent, setUsersPoolModelCurrent] = useState<ActivityDetailInfo>()
+  const [usersPoolModelDone, setUsersPoolModelDone] = useState<boolean>(false)
+
+  const usersPoolModelOnDone = () => {
+    setUsersPoolModelDone(false);
+    setUsersPoolModelVisible(false);
+    setUsersPoolModelCurrent(undefined);
+  }
+
+  const usersPoolModelSubmit = async (record: UsersPool): Promise<boolean> => {
+    const method = record?.id ? 'update' : 'add';
+    let ok: boolean = false
+    if (method === 'update') {
+      ok = await handleUpdateUsersPool(record)
+    } else if (method === 'add') {
+      ok = await handleAddUsersPool(record)
+    }
+    setUsersPoolModelDone(ok);
+    //刷新列表
+    ok && actionRef.current?.reload();
+    return ok
+  }
+
+  const showUsersPoolModal = (activityDetailInfo: ActivityDetailInfo) => {
+    setUsersPoolModelCurrent(activityDetailInfo)
+    setUsersPoolModelVisible(true);
+  }
+
+  const showAddUsersPoolModal = (user: User) => {
+    const pd: any = { user }
+    showUsersPoolModal(pd as unknown as ActivityDetailInfo)
+  }
+
+  const expandedRowRender = (user: Item) => {
+    if (!usersPoolCache.current.has(user.id)) {
+      message.error(`${user.name}参与活动数据丢失！`)
+      return <></>
+    }
+    const cache = usersPoolCache.current.get(user.id)?.user_activities
+    const data = cache?.map<ActivityDetailInfo>((item: UserActivity, index: number) => {
+      return {
+        key: index,
+
+        name: item.activity.name,
+        score: item.users_pool.score,  //在某活动中的积分
+        status: item.users_pool.status,  //状态
+        user: user,  //参与用户信息
+        usersPool: item.users_pool,
+        activity: item.activity
+      }
+    });
+    return (
+      <ProTable
+        columns={[
+          { title: '活动名称', dataIndex: 'name', key: 'name', valueType: "text" },
+          { title: '积分', dataIndex: 'score', key: 'score', valueType: "digit" },
+          {
+            title: '状态',
+            dataIndex: 'status',
+            valueType: 'select',
+            valueEnum: {
+              1: {
+                text: '允许',
+                status: 'Success',
+              },
+              0: {
+                text: '禁止',
+                status: 'Default',
+              },
+            },
+          },
+          {
+            title: '操作',
+            dataIndex: 'operation',
+            key: 'operation',
+            valueType: 'option',
+            render: (_, record: ActivityDetailInfo) => [
+              <a href="#!" onClick={(e) => { e.preventDefault(); showUsersPoolModal(record) }} key="updateUsersPool">编辑</a>,
+              <a href="#!" hidden={true} onClick={(e) => { e.preventDefault(); handleDelUsersPool({ id: record.usersPool.id }) }} key="delUsersPool">删除</a>
+            ],
+          },
+        ]}
+        headerTitle={false}
+        search={false}
+        options={false}
+        dataSource={data}
+        pagination={false}
+        footer={(_prizeDetails: readonly ActivityDetailInfo[]) => [
+          <Button key="addUsersPool" onClick={() => { showAddUsersPoolModal(user); }} type="dashed" icon={<PlusOutlined />} >添加活动</Button>
+        ]}
+      />
+    );
   };
 
   return (
@@ -281,6 +445,7 @@ const UserList: React.FC = () => {
         ]}
         request={list}
         columns={columns}
+        expandable={{ expandedRowRender }}
       />
       <OperationModal
         done={done}
@@ -288,6 +453,14 @@ const UserList: React.FC = () => {
         current={current}
         onDone={handleDone}
         onSubmit={handleSubmit}
+      />
+
+      <UsersPoolModal
+        done={usersPoolModelDone}
+        visible={usersPoolModelVisible}
+        onDone={usersPoolModelOnDone}
+        onSubmit={usersPoolModelSubmit}
+        current={usersPoolModelCurrent}
       />
 
       <Drawer
@@ -307,7 +480,7 @@ const UserList: React.FC = () => {
               data: current || {},
             })}
             params={{
-              id: current?.name,
+              id: current?.id,
             }}
             columns={columns as ProDescriptionsItemProps<Item>[]}
           />

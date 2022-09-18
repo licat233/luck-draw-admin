@@ -78,7 +78,7 @@ export default (props: any) => {
   "fixedHeader": false,
   "fixSiderbar": true,
   "colorWeak": false,
-  "title": "LuckDraw Manage",
+  "title": "LuckDraw Admin",
   "pwa": false,
   "logo": "https://img.alicdn.com/imgextra/i1/917298378/O1CN01M5YjWo2BlB0mF5rQu_!!917298378.png",
   "iconfontUrl": ""
