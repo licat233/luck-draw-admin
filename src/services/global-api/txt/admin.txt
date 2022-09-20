@@ -42,7 +42,7 @@ export function bindEmailCaptcha(req: components.BindEmailCaptchaReq) {
 }
 
 /**
- * @description "注销"
+ * @description "注销登录"
  */
 export function logout() {
 	return webapi.post<components.BaseResp>("/v1/api/admin/logout")
@@ -53,27 +53,6 @@ export function logout() {
  */
 export function currentUser() {
 	return webapi.post<components.BaseResp>("/v1/api/admin/currentUser")
-}
-
-/**
- * @description "上传头像"
- */
-export function uploadAvatar() {
-	return webapi.post<components.BaseResp>("/v1/api/admin/uploadAvatar")
-}
-
-/**
- * @description "上传logo"
- */
-export function uploadLogo() {
-	return webapi.post<components.BaseResp>("/v1/api/admin/uploadLogo")
-}
-
-/**
- * @description "上传图片"
- */
-export function uploadImg() {
-	return webapi.post<components.BaseResp>("/v1/api/admin/uploadImg")
 }
 
 /**
@@ -201,14 +180,6 @@ export function put(req: components.AdminerPutReq) {
  */
 export function del(req: components.AdminerDelReq) {
 	return webapi.delete<components.BaseResp>("/v1/api/admin/adminer", req)
-}
-
-/**
- * @description "管理员修改自己的账号信息"
- * @param req
- */
-export function modify(req: components.AdminerModifyReq) {
-	return webapi.post<components.BaseResp>("/v1/api/admin/adminer/modify", req)
 }
 
 /**
@@ -695,4 +666,56 @@ export function put(req: components.UsersPoolPutReq) {
  */
 export function del(req: components.UsersPoolDelReq) {
 	return webapi.delete<components.BaseResp>("/v1/api/admin/usersPool", req)
+}
+
+/**
+ * @description "管理员校验自己的密码"
+ * @param req
+ */
+export function verifyPassword(req: components.VerifyPasswordReq) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/account/verifyPassword", req)
+}
+
+/**
+ * @description 管理员修改自己的账号信息，当修改密码时，需要提供验证码
+ * @param req
+ */
+export function putCurrent(req: components.PutCurrentReq) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/account/putCurrent", req)
+}
+
+/**
+ * @description "获取自己的账号信息"
+ */
+export function currentInfo() {
+	return webapi.get<components.BaseResp>("/v1/api/admin/account/currentInfo")
+}
+
+/**
+ * @description "修改自己的密码"
+ * @param req
+ */
+export function putPassword(req: components.PutPasswordReq) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/account/putPassword", req)
+}
+
+/**
+ * @description "上传头像"
+ */
+export function uploadAvatar() {
+	return webapi.post<components.BaseResp>("/v1/api/admin/upload/avatar")
+}
+
+/**
+ * @description "上传logo"
+ */
+export function uploadLogo() {
+	return webapi.post<components.BaseResp>("/v1/api/admin/upload/logo")
+}
+
+/**
+ * @description "上传图片"
+ */
+export function uploadImg() {
+	return webapi.post<components.BaseResp>("/v1/api/admin/upload/image")
 }

@@ -148,6 +148,7 @@ const AdminerList: React.FC = () => {
       dataIndex: 'password',
       valueType: 'password',
       hideInTable: true,
+      hideInSearch: true,
     },
     {
       title: '邮箱',
@@ -177,6 +178,7 @@ const AdminerList: React.FC = () => {
       title: '超管?',
       dataIndex: 'is_super_admin',
       sorter: true,
+      valueType: "select",
       valueEnum: {
         0: {
           text: '否',
@@ -266,7 +268,13 @@ const AdminerList: React.FC = () => {
         content: '确定删除该管理员吗？',
         okText: '确认',
         cancelText: '取消',
-        onOk: () => handleRemove(currentItem.id),
+        onOk: async () => {
+          const ok = await handleRemove(currentItem.id)
+          //刷新列表
+          if (actionRef.current && ok) {
+            actionRef.current.reload();
+          }
+        },
       });
     }
   };

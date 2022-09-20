@@ -1,7 +1,9 @@
 import { FC, useState } from 'react';
 import {
   ModalForm,
+  ProFormItem,
   ProFormSelect,
+  ProFormSwitch,
   ProFormText,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
@@ -89,6 +91,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
     </div>
   );
 
+
   return (
     <ModalForm<BasicListItemDataType>
       visible={visible}
@@ -96,6 +99,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       className={styles.standardListForm}
       width={375}
       onFinish={async (values) => {
+        values.is_super_admin = values.is_super_admin ? 1 : 0;
         const ok = await onSubmit({ ...current, ...values, avatar: avatarUrl });
         ok && onDone();
       }}
@@ -110,18 +114,29 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         bodyStyle: done ? { padding: '72px 0' } : {},
       }}
     >
-      <Upload
-        accept='.jpg,.png,.jpeg'
-        name="avatar"
-        listType="picture-card"
-        showUploadList={false}
-        action="/v1/api/admin/uploadAvatar"
-        beforeUpload={beforeUpload}
-        onChange={handleChange}
-        customRequest={handleUpload}
-      >
-        {avatarUrl ? <img src={avatarUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-      </Upload>
+      <ProFormItem label="头像" name="avatar" valueType="image"
+        rules={[
+          {
+            required: true,
+            message: '必填项',
+          },
+        ]}>
+        <Upload
+          accept='.jpg,.png,.jpeg'
+          name="avatar"
+          listType="picture-card"
+          showUploadList={false}
+          action="/v1/api/admin/uploadAvatar"
+          beforeUpload={beforeUpload}
+          onChange={handleChange}
+          customRequest={handleUpload}
+          fileList={[]}
+          maxCount={1}
+        >
+          {avatarUrl ? <img src={avatarUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+        </Upload>
+      </ProFormItem>
+
       <ProFormText
         rules={[
           {
@@ -157,7 +172,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       <ProFormText
         rules={[
           {
-            required: true,
+            required: !current || false,
             message: '密码为必填项',
           },
           {
@@ -193,9 +208,9 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         name="status"
         label="状态"
       />
-      <ProFormSelect
+      <ProFormSwitch
         placeholder="请选择"
-        options={[{ label: "否", value: 0 }, { label: "是", value: 1 }]}
+        // options={[{ label: "否", value: 0 }, { label: "是", value: 1 }]}
         width="md"
         name="is_super_admin"
         label="是否为超级管理员"

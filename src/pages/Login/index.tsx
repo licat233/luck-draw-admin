@@ -20,6 +20,7 @@ import { Alert, message, Tabs, Input, Modal } from 'antd';
 import React, { useState, useEffect } from 'react';
 import styles from './index.less';
 import { useForm } from 'antd/lib/form/Form';
+import { ProFormDigit, ProFormItem } from '@ant-design/pro-form';
 
 const LoginMessage: React.FC<{
   content: string;
@@ -226,7 +227,7 @@ const Login: React.FC = () => {
                 <div className={styles.captchaimg} key="account_captchaImag" onClick={getCaptchaImage}>
                   <img src={imgCaptcha?.base64_image || ''} />
                 </div>
-              </Input.Group>
+                </Input.Group>
             </>
           )}
 

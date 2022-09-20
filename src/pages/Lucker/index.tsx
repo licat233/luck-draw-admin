@@ -689,7 +689,13 @@ const LuckerList: React.FC = () => {
         content: '确定删除该奖品吗？',
         okText: '确认',
         cancelText: '取消',
-        onOk: () => handleRemove(currentItem.id),
+        onOk: async () => {
+          const ok = await handleRemove(currentItem.id)
+          //刷新列表
+          if (actionRef.current && ok) {
+            actionRef.current.reload();
+          }
+        },
       });
     }
   };

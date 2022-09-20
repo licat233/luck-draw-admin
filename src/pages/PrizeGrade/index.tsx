@@ -10,7 +10,7 @@ import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { prizeGradeAdd as add, prizeGradeDel as del, prizeGradeList as list, prizeGradePut as put } from '@/services/global-api/admin-custom';
-import { PrizeGrade as Item, PrizeGradeAddReq as AddReq, PrizeGradePutReq as PutReq, ListReqParams as Params } from "@/services/global-api/adminComponents";
+import { PrizeGrade as Item, PrizeGradeAddReq as AddReq, PrizeGradePutReq as PutReq, PrizeGradeListReqParams as Params } from "@/services/global-api/adminComponents";
 import OperationModal from './components/OperationModal';
 
 /**
@@ -194,7 +194,13 @@ const PrizeGradeList: React.FC = () => {
         content: '确定删除该奖品级别吗？',
         okText: '确认',
         cancelText: '取消',
-        onOk: () => handleRemove(currentItem.id),
+        onOk: async () => {
+          const ok = await handleRemove(currentItem.id)
+          //刷新列表
+          if (actionRef.current && ok) {
+            actionRef.current.reload();
+          }
+        },
       });
     }
   };
@@ -239,11 +245,6 @@ const PrizeGradeList: React.FC = () => {
             <PlusOutlined /> 新建
           </Button>,
         ]}
-        params={{
-          pageSize: 20,
-          current: 1,
-          keyword: "",
-        }}
         request={list}
         columns={columns}
       />

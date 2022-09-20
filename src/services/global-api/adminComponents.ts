@@ -94,6 +94,11 @@ export interface JwtToken {
 	refresh_after: number
 }
 
+export interface CaptchaReq {
+	captcha_id: string // 验证码ID
+	solution: string // 验证码答案
+}
+
 export interface CaptchaResp {
 	captcha_id: string
 	expires_at: number
@@ -263,7 +268,7 @@ export interface AdminerPutReq {
 	name: string // 管理员名称
 	avatar: string // 头像
 	passport: string // 账号
-	password: string // 密码
+	password?: string // 密码
 	email: string // 邮箱
 	status: number // 账号状态，是否可用
 	is_super_admin: number // 是否为超级管理员
@@ -273,14 +278,6 @@ export interface AdminerPutReq {
 
 export interface AdminerDelReq {
 	id: number
-}
-
-export interface AdminerModifyReq {
-	name: string // 管理员名称
-	avatar: string // 头像
-	passport: string // 账号
-	password: string // 密码
-	email: string // 邮箱
 }
 
 export interface AdminerListReq {
@@ -791,5 +788,24 @@ export interface UsersPoolListReqParams {
 	user_id: number // 奖品id
 	status: number // 状态:0未授权，1正常，2已冻结
 	score: number // 用户在当前活动的积分
+}
+
+export interface PutCurrentReq {
+	name: string // 管理员名称
+	avatar: string // 头像
+	passport: string // 账号
+	email: string // 邮箱
+}
+
+export interface VerifyPasswordReq {
+	password: string // 密码
+}
+
+export interface PutPasswordReq {
+	old_password: string // 旧密码
+	new_password: string // 新密码
+	//附加的验证码
+	captcha_id: string // 验证码ID
+	solution: string // 验证码答案
 }
 

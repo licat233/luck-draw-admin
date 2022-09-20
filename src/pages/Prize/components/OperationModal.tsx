@@ -4,6 +4,7 @@ import {
   ProFormSelect,
   ProFormText,
   ProFormDigit,
+  ProFormItem,
 } from '@ant-design/pro-form';
 import styles from '../style.less';
 import { Prize as BasicListItemDataType, uploadImg } from '@/services/global-api/admin-custom';
@@ -97,10 +98,10 @@ const OperationModal: FC<OperationModalProps> = (props) => {
       className={styles.standardListForm}
       width={375}
       onFinish={async (values) => {
-        const ok = await onSubmit({ ...current, ...values });
+        const ok = await onSubmit({ ...current, ...values, image: imageUrl });
         ok && onDone();
       }}
-      initialValues={current}
+      initialValues={{status:1,...current}}
       submitter={{
         render: (_, dom) => (done ? null : dom),
       }}
@@ -123,18 +124,28 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         name="name"
         label='奖品名称'
       />
-      <Upload
-        accept='.jpg,.png,.jpeg'
-        name="image"
-        listType="picture-card"
-        showUploadList={false}
-        action="/v1/api/admin/uploadImg"
-        beforeUpload={beforeUpload}
-        onChange={handleChange}
-        customRequest={handleUpload}
-      >
-        {imageUrl ? <img src={imageUrl} alt="image" style={{ width: '100%' }} /> : uploadButton}
-      </Upload>
+      <ProFormItem label="奖品图片" name="image" rules={[
+          {
+            required: true,
+            message: '必填项',
+          },
+        ]}>
+        <Upload
+          accept='.jpg,.png,.jpeg'
+          name="image"
+          listType="picture-card"
+          showUploadList={false}
+          action="/v1/api/admin/uploadImg"
+          beforeUpload={beforeUpload}
+          onChange={handleChange}
+          customRequest={handleUpload}
+          fileList={[]}
+          maxCount={1}
+        >
+          {imageUrl ? <img src={imageUrl} alt="image" style={{ width: '100%' }} /> : uploadButton}
+        </Upload>
+      </ProFormItem>
+
       <ProFormDigit
         rules={[
           {

@@ -43,7 +43,7 @@ export function bindEmailCaptcha(req: components.BindEmailCaptchaReq, options?: 
 }
 
 /**
- * @description "注销"
+ * @description "注销登录"
  */
 export function logout(options?: { [key: string]: any }) {
 	return webapi.post<components.BaseResp>("/v1/api/admin/logout", options)
@@ -54,27 +54,6 @@ export function logout(options?: { [key: string]: any }) {
  */
 export function currentUser(options?: { [key: string]: any }) {
 	return webapi.post<components.BaseResp>("/v1/api/admin/currentUser", options)
-}
-
-/**
- * @description "上传头像"
- */
-export function uploadAvatar(options?: { [key: string]: any }) {
-	return webapi.post<components.BaseResp>("/v1/api/admin/uploadAvatar", options)
-}
-
-/**
- * @description "上传logo"
- */
-export function uploadLogo(options?: { [key: string]: any }) {
-	return webapi.post<components.BaseResp>("/v1/api/admin/uploadLogo", options)
-}
-
-/**
- * @description "上传图片"
- */
-export function uploadImg(options?: { [key: string]: any }) {
-	return webapi.post<components.BaseResp>("/v1/api/admin/uploadImg", options)
 }
 
 /**
@@ -202,14 +181,6 @@ export function adminerPut(req: components.AdminerPutReq, options?: { [key: stri
  */
 export function adminerDel(req: components.AdminerDelReq, options?: { [key: string]: any }) {
 	return webapi.delete<components.BaseResp>("/v1/api/admin/adminer", req, options)
-}
-
-/**
- * @description "管理员修改自己的账号信息"
- * @param req
- */
-export function modify(req: components.AdminerModifyReq, options?: { [key: string]: any }) {
-	return webapi.post<components.BaseResp>("/v1/api/admin/adminer/modify", req, options)
 }
 
 /**
@@ -696,4 +667,56 @@ export function usersPoolPut(req: components.UsersPoolPutReq, options?: { [key: 
  */
 export function usersPoolDel(req: components.UsersPoolDelReq, options?: { [key: string]: any }) {
 	return webapi.delete<components.BaseResp>("/v1/api/admin/usersPool", req, options)
+}
+
+/**
+ * @description "管理员校验自己的密码"
+ * @param req
+ */
+export function verifyPassword(req: components.VerifyPasswordReq, options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/account/verifyPassword", req, options)
+}
+
+/**
+ * @description 管理员修改自己的账号信息，当修改密码时，需要提供验证码
+ * @param req
+ */
+export function putCurrent(req: components.PutCurrentReq, options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/account/putCurrent", req, options)
+}
+
+/**
+ * @description "获取自己的账号信息"
+ */
+export function currentInfo(options?: { [key: string]: any }) {
+	return webapi.get<components.BaseResp>("/v1/api/admin/account/currentInfo", options)
+}
+
+/**
+ * @description "修改自己的密码"
+ * @param req
+ */
+export function putPassword(req: components.PutPasswordReq, options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/account/putPassword", req, options)
+}
+
+/**
+ * @description "上传头像"
+ */
+export function uploadAvatar(options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/upload/avatar", options)
+}
+
+/**
+ * @description "上传logo"
+ */
+export function uploadLogo(options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/upload/logo", options)
+}
+
+/**
+ * @description "上传图片"
+ */
+export function uploadImg(options?: { [key: string]: any }) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/upload/image", options)
 }

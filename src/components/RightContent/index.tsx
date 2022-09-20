@@ -3,7 +3,7 @@ import { useModel } from '@umijs/max';
 import { Space } from 'antd';
 import React from 'react';
 import HeaderSearch from '../HeaderSearch';
-import Avatar from './AvatarDropdown';
+import AvatarDropdown from './AvatarDropdown';
 import styles from './index.less';
 export type SiderTheme = 'light' | 'dark';
 
@@ -56,7 +56,7 @@ const GlobalHeaderRight: React.FC = () => {
       >
         <QuestionCircleOutlined />
       </span>
-      <Avatar />
+      <AvatarDropdown menu={true} />
     </Space>
   );
 };
