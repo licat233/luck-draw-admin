@@ -395,6 +395,14 @@ export function del(req: components.PrizesPoolDelReq) {
 }
 
 /**
+ * @description 重置某活动的奖品池概率
+ * @param req
+ */
+export function resetLuckValue(req: components.ResetLuckValueReq) {
+	return webapi.post<components.BaseResp>("/v1/api/admin/prizesPool/resetLuckValue", req)
+}
+
+/**
  * @description "获取项目列表"
  * @param params
  */

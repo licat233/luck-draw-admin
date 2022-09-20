@@ -14,6 +14,7 @@ import { User as Item, UserAddReq as AddReq, UserPutReq as PutReq, UserListReqPa
 import OperationModal from './components/OperationModal';
 import { ActivityDetailInfo } from './data';
 import UsersPoolModal from './components/UsersPoolModal';
+import MoreActionBtn from '../components/MoreBtn';
 
 /**
  * @en-US Add node
@@ -179,69 +180,33 @@ const UserList: React.FC = () => {
       valueType: 'option',
       width: 80,
       render: (_, record) => [
-        <MoreBtn key="more" item={record} />,
+        <MoreActionBtn key="more" current={record}
+          onEdit={(item) => { showEditModal(item) }}
+          onDel={(id) => { delHandle(id) }}
+        />,
       ],
     },
   ];
-
-  const operationList = (): ItemType[] => {
-    return [
-      {
-        key: 'edit',
-        itemIcon: <EditTwoTone twoToneColor='#245cfc'></EditTwoTone>,
-        label: '编辑'
-      },
-      {
-        key: 'delete',
-        itemIcon: <DeleteTwoTone twoToneColor='#ce2e3f'></DeleteTwoTone>,
-        danger: true,
-        label: '删除',
-      },
-    ]
-  }
-
-  const MoreBtn: React.FC<{
-    item: Item;
-  }> = ({ item }) => (
-    <Dropdown
-      overlay={
-        <Menu
-          onClick={({ key }) => editAndDelete(key, item)}
-          items={operationList()}
-        >
-        </Menu>
-      }
-    >
-      <a href="#!" onClick={(e) => { e.preventDefault() }}>
-        操作 <DownOutlined />
-      </a>
-    </Dropdown>
-  );
 
   const showEditModal = (item: Item) => {
     setVisible(true);
     setCurrent(item);
   };
 
-  const editAndDelete = (key: string | number, currentItem: Item) => {
-    if (key === 'edit') {
-      showEditModal(currentItem);
-    }
-    else if (key === 'delete') {
-      Modal.confirm({
-        title: '删除警告',
-        content: '确定删除该用户吗？',
-        okText: '确认',
-        cancelText: '取消',
-        onOk: async () => {
-          const ok = await handleRemove(currentItem.id)
-          //刷新列表
-          if (actionRef.current && ok) {
-            actionRef.current.reload();
-          }
-        },
-      });
-    }
+  const delHandle = (user_id: number) => {
+    Modal.confirm({
+      title: '删除警告',
+      content: '确定删除该用户吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: async () => {
+        const ok = await handleRemove(user_id)
+        //刷新列表
+        if (actionRef.current && ok) {
+          actionRef.current.reload();
+        }
+      },
+    });
   };
 
   const handleDone = () => {

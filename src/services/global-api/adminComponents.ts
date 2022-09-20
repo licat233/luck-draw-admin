@@ -576,6 +576,11 @@ export interface PrizesPoolListReqParams {
 	remainder: number // 奖品剩余数量
 }
 
+export interface ResetLuckValueReq {
+	activity_id: number // 表主键
+	activity_uuid: string // 保险起见，加入uuid做验证
+}
+
 export interface Project {
 	id: number // 表主键
 	uuid: string // 唯一识别码

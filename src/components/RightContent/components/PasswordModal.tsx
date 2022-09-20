@@ -8,6 +8,8 @@ import {
 } from '@ant-design/pro-components';
 import { DrawerForm, ProFormDigit, ProFormItem } from '@ant-design/pro-form';
 import { message } from 'antd';
+import { useForm } from 'antd/es/form/Form';
+import Tooltip from 'antd/es/tooltip';
 import { FC, useState } from 'react';
 import styles from '../style.less';
 
@@ -20,6 +22,7 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
     const { visible, onDone } = props
     const [imgCaptcha, setImgCaptcha] = useState<CaptchaInfo>()
     const [done, setDone] = useState<boolean>(false)
+    const [form] = useForm<PutPasswordReq>()
 
     const getCaptchaImage = async () => {
         if (done) return;
@@ -62,10 +65,18 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
     const onVisibleChange = () => {
         getCaptchaImage();
     }
+
+    const confirmPassword = (pwd1: string, pwd2: string): boolean => {
+        if (!pwd1 || !pwd2) return true
+        return pwd1 === pwd2;
+    }
+
+    const [ruleTigger, setRuleTigger] = useState<number>()
     return (
         <DrawerForm<PutPasswordReq>
             visible={visible}
             title="修改密码"
+            form={form}
             autoFocusFirstInput
             drawerProps={{
                 destroyOnClose: true,
@@ -92,7 +103,7 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                 return ok;
             }}
         >
-            <ProFormText
+            <ProFormText.Password
                 rules={[
                     {
                         required: true,
@@ -103,13 +114,11 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                         message: '原密码长度有误',
                     },
                 ]}
-                placeholder="请输入原密码"
                 width="md"
                 name="old_password"
                 label="原密码"
-                hidden={false}
             />
-            <ProFormText
+            <ProFormText.Password
                 rules={[
                     {
                         required: true,
@@ -120,11 +129,41 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                         message: '新密码长度有误',
                     },
                 ]}
-                placeholder="请输入新密码"
                 width="md"
                 name="new_password"
                 label="新密码"
-                hidden={false}
+            />
+            <ProFormText.Password
+                rules={[
+                    {
+                        required: true,
+                        message: '确认密码为必填项',
+                    },
+                    {
+                        pattern: /^.{6,34}$/,
+                        message: '确认密码长度有误',
+                    },
+                    {
+                        len: ruleTigger,  //无法得知antd如何实现主动提示，暂时使用该方案
+                        message: '密码不一致'
+                    }
+                ]}
+                width="md"
+                name="new_password2"
+                label="确认密码"
+                fieldProps={{
+                    onChange: (e) => {
+                        const pwd1 = form.getFieldValue('new_password')
+                        const pwd2 = e.currentTarget.value;
+                        const ok = confirmPassword(pwd1, pwd2);
+                        if (!ok) {
+                            setRuleTigger(0);
+                        }else{
+                            setRuleTigger(undefined);
+                        }
+                    }
+                }}
+                
             />
             <ProFormItem>
                 <ProFormDigit
@@ -145,8 +184,7 @@ const PutPasswordModal: FC<PutPasswordModalProps> = (props) => {
                         prefix: <SafetyCertificateOutlined className={styles.prefixIcon} />,
                     }}
                     width="sm"
-                    placeholder="验证码"
-
+                    label="验证码"
                 />
                 <div className={styles.captchaimg} key="account_captchaImag" onClick={getCaptchaImage}>
                     <img src={imgCaptcha?.base64_image || ''} />

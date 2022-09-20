@@ -10,6 +10,8 @@ export type PrizeDetailInfo = {
     image: string; //图片
     price: number; //价格
     grade: string; //级别
+    chance: string; //概率
+    luck_value: number; //幸运值
     total: number; //总数量
     status: number; //状态
     remainder: number; //剩余数量

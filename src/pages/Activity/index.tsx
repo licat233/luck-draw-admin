@@ -1,4 +1,4 @@
-import { DeleteTwoTone, DownOutlined, EditTwoTone, PlusOutlined } from '@ant-design/icons';
+import { DeleteTwoTone, DownOutlined, EditTwoTone, PlusOutlined, RedoOutlined } from '@ant-design/icons';
 import { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
 import {
   PageContainer,
@@ -10,12 +10,13 @@ import { Button, Drawer, Dropdown, Modal, Menu, message } from 'antd';
 import React, { useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { activityAdd as add, activityDel as del, activityDetails, activityPut as put, prizesPoolAdd, prizesPoolDel, prizesPoolPut, activityPatternEnumList } from '@/services/global-api/admin-custom';
+import { activityAdd as add, activityDel as del, activityDetails, activityPut as put, prizesPoolAdd, prizesPoolDel, prizesPoolPut, activityPatternEnumList, resetLuckValue } from '@/services/global-api/admin-custom';
 import { Activity as Item, ActivityAddReq as AddReq, ActivityPutReq as PutReq, ActivityListReq as Params, ActivityPrize, Activity, ActivityDetail, BaseResp, PrizesPool, PrizesPoolPutReq, PrizesPoolAddReq, PrizesPoolDelReq } from "@/services/global-api/adminComponents";
 import OperationModal from './components/OperationModal';
 import { projectEnumList } from '@/services/global-api/admin-custom';
 import { PrizeDetailInfo } from './data';
 import PrizesPoolModal from './components/PrizesPoolModel';
+import MoreActionBtn from '../components/MoreBtn';
 
 /**
  * @en-US Add node
@@ -84,6 +85,11 @@ const handleRemove = async (id: number) => {
 const formatDate = (timestamp: number | undefined): string => {
   if (!timestamp) return "~"
   return dayjs(timestamp * 1000).format('YYYY-MM-DD HH:mm:ss')
+}
+
+const chanceCalculation = (total: number, item: number) => {
+  const a = item * 100 / total
+  return a.toFixed(2)
 }
 
 const ActivityList: React.FC = () => {
@@ -199,70 +205,31 @@ const ActivityList: React.FC = () => {
       valueType: 'option',
       width: 80,
       render: (_, record) => [
-        <MoreBtn key="more" item={record} />,
+        <MoreActionBtn key="more" current={record} onEdit={(item) => { showEditModal(item); }} onDel={(id) => { delHandle(id) }} />,
       ],
     },
   ];
-
-  const operationList = (): ItemType[] => {
-    return [
-      {
-        key: 'edit',
-        itemIcon: <EditTwoTone twoToneColor='#245cfc'></EditTwoTone>,
-        label: '编辑'
-      },
-      {
-        key: 'delete',
-        itemIcon: <DeleteTwoTone twoToneColor='#ce2e3f'></DeleteTwoTone>,
-        danger: true,
-        label: '删除',
-      },
-    ]
-  }
-
-  const MoreBtn: React.FC<{
-    item: Item;
-  }> = ({ item }) => (
-    <Dropdown
-      overlay={
-        <Menu
-          onClick={({ key }) => editAndDelete(key, item)}
-          items={operationList()}
-        >
-        </Menu>
-      }
-    >
-      <a href="#!" onClick={(e) => { e.preventDefault() }}>
-        操作 <DownOutlined />
-      </a>
-    </Dropdown>
-  );
 
   const showEditModal = (item: Item) => {
     setVisible(true);
     setCurrent(item);
   };
 
-  const editAndDelete = (key: string | number, currentItem: Item) => {
-    if (key === 'edit') {
-      showEditModal(currentItem);
-    }
-    else if (key === 'delete') {
-      Modal.confirm({
-        title: '删除警告',
-        content: '确定删除该项目吗？',
-        okText: '确认',
-        cancelText: '取消',
-        onOk: async () => {
-          const ok = await handleRemove(currentItem.id)
-          //刷新列表
-          if (actionRef.current && ok) {
-            actionRef.current.reload();
-          }
-        },
-      });
-    }
-  };
+  const delHandle = (id: number) => {
+    Modal.confirm({
+      title: '删除警告',
+      content: '确定删除该活动吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: async () => {
+        const ok = await handleRemove(id)
+        //刷新列表
+        if (actionRef.current && ok) {
+          actionRef.current.reload();
+        }
+      },
+    });
+  }
 
   const handleDone = () => {
     setDone(false);
@@ -392,14 +359,37 @@ const ActivityList: React.FC = () => {
     showPrizesPoolModal(pd as unknown as PrizeDetailInfo)
   }
 
+  const resetLuckValueHandle = async (activity: Activity) => {
+    const func = async () => {
+      try {
+        await resetLuckValue({ activity_id: activity.id, activity_uuid: activity.uuid })
+        actionRef.current?.reload();
+      } catch (error) {
+        message.error("重置失败")
+      }
+    }
+    Modal.confirm({
+      title: '敏感操作',
+      content: '确定重置该活动所有奖品的概率吗？',
+      okText: '确认',
+      cancelText: '取消',
+      onOk: () => func(),
+    });
+  }
 
   const expandedRowRender = (activity: Item) => {
     if (!prizesPoolCache.current.has(activity.id)) {
       message.error(`${activity.name}活动奖品数据丢失！`)
       return <></>
     }
-    const cache = prizesPoolCache.current.get(activity.id)?.activity_prizes
+    const cache = prizesPoolCache.current.get(activity.id)?.activity_prizes;
+    let totalChance = 0;
+    cache?.forEach((currentItem: ActivityPrize) => {
+      totalChance += currentItem.prizes_pool.luck_value;
+    })
+
     const data = cache?.map<PrizeDetailInfo>((item: ActivityPrize, index: number) => {
+      const chance = chanceCalculation(totalChance, item.prizes_pool.luck_value) + "%"
       return {
         index: index,
         id: item.prizes_pool.id,
@@ -409,6 +399,8 @@ const ActivityList: React.FC = () => {
         image: item.prize.image,
         price: item.prize.price,
         grade: item.prize_grade.name,
+        chance: chance,
+        luck_value: item.prizes_pool.luck_value,
         total: item.prizes_pool.total,
         status: item.prizes_pool.status,
         remainder: item.prizes_pool.remainder,
@@ -423,6 +415,8 @@ const ActivityList: React.FC = () => {
           { title: '图片', dataIndex: 'image', key: 'image', valueType: 'image' },
           { title: '价格', dataIndex: 'price', key: 'price', valueType: 'digit' },
           { title: '等级', dataIndex: 'grade', key: 'grade', valueType: 'text' },
+          { title: '概率', dataIndex: 'chance', key: 'chance', valueType: 'text' },
+          { title: '幸运值', dataIndex: 'luck_value', key: 'luck_value', valueType: 'digit' },
           { title: '数量', dataIndex: 'total', key: 'total', valueType: 'digit' },
           { title: '剩余', dataIndex: 'remainder', key: 'remainder', valueType: 'digit' },
           {
@@ -442,16 +436,20 @@ const ActivityList: React.FC = () => {
           },
           {
             title: '操作',
-            dataIndex: 'operation',
-            key: 'operation',
+            dataIndex: 'option',
             valueType: 'option',
+            width: 80,
             render: (_, record: PrizeDetailInfo) => [
-              <a href="#!" onClick={(e) => { e.preventDefault(); showPrizesPoolModal(record) }} key="updatePrizesPool">编辑</a>,
-              <a href="#!" onClick={(e) => { e.preventDefault(); handleDelPrizesPool({ id: record.prizesPool.id }) }} key="delPrizesPool">删除</a>
+              <MoreActionBtn key="more" current={record}
+                onEdit={(item: PrizeDetailInfo) => {
+                  showPrizesPoolModal(item)
+                }}
+                onDel={(id) => {
+                  handleDelPrizesPool({ id: id })
+                }} />,
             ],
           },
         ]}
-        // actionRef={prizesPoolRef}
         rowKey="key"
         headerTitle={false}
         search={false}
@@ -459,7 +457,8 @@ const ActivityList: React.FC = () => {
         dataSource={data}
         pagination={false}
         footer={(_prizeDetails: readonly PrizeDetailInfo[]) => [
-          <Button key="addPrizesPool" onClick={() => { showAddPrizesPoolModal(activity); }} type="dashed" icon={<PlusOutlined />} >添加奖品</Button>
+          <Button key="addPrizesPool" onClick={() => { showAddPrizesPoolModal(activity); }} type="dashed" icon={<PlusOutlined />} >添加奖品</Button>,
+          <Button key="resetLuckValue" danger onClick={() => { resetLuckValueHandle(activity); }} type="dashed" icon={<RedoOutlined />} >重置概率</Button>
         ]}
       />
     );

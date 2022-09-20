@@ -169,7 +169,7 @@ const OperationModal: FC<OperationModalProps> = (props) => {
         name="passport"
         label="账号"
       />
-      <ProFormText
+      <ProFormText.Password
         rules={[
           {
             required: !current || false,
