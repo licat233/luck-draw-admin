@@ -23,10 +23,16 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser({
+      const resp = await queryCurrentUser({
         skipErrorHandler: true,
       });
-      return msg.data;
+      const adminer = resp.data as API.CurrentUser;
+      if (adminer.is_super_admin) {
+        adminer.access = "admin"
+      } else {
+        adminer.access = "";
+      }
+      return adminer;
     } catch (error) {
       history.push(loginPath);
     }
@@ -85,11 +91,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     ],
     links: isDev
       ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-        ]
+        <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+          <LinkOutlined />
+          <span>OpenAPI 文档</span>
+        </Link>,
+      ]
       : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
