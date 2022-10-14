@@ -222,6 +222,9 @@ const LuckerList: React.FC = () => {
       key: "user_name",
       valueType: 'text',
       render: (_, record) => {
+        if(!record.user) {
+          return "-";
+        }
         return (
           <a
             href="#!"
@@ -242,6 +245,9 @@ const LuckerList: React.FC = () => {
       key: "project_id",
       valueType: 'select',
       render: (_, record) => {
+        if(!record.project) {
+          return "-";
+        }
         return (
           <a
             href="#!"
@@ -290,6 +296,9 @@ const LuckerList: React.FC = () => {
       valueType:  activityType,
       // request: activityEnumListRequest,
       render: (_, record) => {
+        if(!record.activity) {
+          return "-";
+        }
         return (
           <a
             href="#!"
@@ -332,6 +341,9 @@ const LuckerList: React.FC = () => {
         options: prizeOptions || [],
       },
       render: (_, record) => {
+        if(!record.prize) {
+          return "-";
+        }
         return (
           <a
             href="#!"
@@ -351,6 +363,9 @@ const LuckerList: React.FC = () => {
       dataIndex: "prize_grade_id",
       valueType: 'select',
       render: (_, record) => {
+        if(!record.prize_grade) {
+          return "-";
+        }
         return record.prize_grade.name
       },
       fieldProps: {
